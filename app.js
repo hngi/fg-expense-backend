@@ -14,7 +14,7 @@ const app = express();
 
 //connect to mongodb
 mongoose.connect('mongodb://localhost:27017/mongo_test_queries', {
-  useNewUrlParser: true,  // for connection wrong
+  useNewUrlParser: true,  // for connection warning
   useUnifiedTopology: true
 
 },function() {
