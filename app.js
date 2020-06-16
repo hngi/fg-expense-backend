@@ -9,8 +9,7 @@ const mongoose = require('mongoose');
 // Require file system module
 const fs = require('file-system');
 const engine = require('ejs-mate');
-
-
+const cors = require('cors');
 
 const app = express();
 
@@ -22,9 +21,6 @@ console.log('\n \t Database connection has been established successfully');
 console.error('App starting error:', err.stack);
 process.exit(1);
 });
-
-
-
 
 /*
     |||  I'll use route method to handle request and response circle  |||
@@ -50,6 +46,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
