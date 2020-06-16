@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 // Require file system module
 const fs = require('file-system');
-const engine = require('ejs-mate');
 const cors = require('cors');
 
 const app = express();
@@ -35,10 +34,6 @@ fs.readdirSync('./routes/').forEach(file => {
   }
 })
 
-// use ejs-locals for all ejs templates:
-app.engine('ejs', engine);
-app.set('views',__dirname + '/views');
-app.set('view engine', 'ejs'); // so you can render('index')
 
 
 app.use(logger('dev'));
@@ -49,12 +44,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next)=> {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -64,9 +59,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(4000, function() {
-  console.log('\n \t server running at 127.0.0.1 & listening on 4000'); 
-  console.log("\n \t Server Time: " + Date())
-})
 
 module.exports = app;
