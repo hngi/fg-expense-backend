@@ -1,2 +1,33 @@
-
-<h1>Page Not Found</h1>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ooops, An Error Occured</title>
+	<style type="text/css">
+		* {
+			font-family: sans-serif;
+		}
+		body {
+			padding: 15px;
+			border: 1px solid lightgrey;
+			margin: 10px 15px;
+		}
+		.title {
+			font-size: 23px;
+			text-align: center;
+		}
+		ul {
+			list-style: none;
+		}
+		li {
+			padding: 7px 0px;
+		}
+	</style>
+</head>
+<body>
+	<h1 class="title">Ooops, An Error Occured</h1>
+	<ul>
+		<li><b>Status: </b> <%=err.status %></li>
+		<li><b>Message: </b> <pre> <%=err.message%> </pre></li>
+	</ul>
+</body>
+</html>
