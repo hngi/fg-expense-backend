@@ -14,8 +14,8 @@ const cors = require('cors');
 const app = express();
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost:27017/mongo_test_queries', function() {
-console.log('\n \t Database connection has been established successfully');
+mongoose.connect('mongodb://localhost:27017/mongo_test_queries',{ useUnifiedTopology: true, useNewUrlParser: true }, function() {
+console.log('Database connection has been established successfully');
 })
 .catch(err => {
 console.error('App starting error:', err.stack);
@@ -59,14 +59,14 @@ app.use(function(err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  err.status = err.status || 500;
+  res.status(err.status);
+  res.render('error', { err: err });
 });
 
 app.listen(4000, function() {
-  console.log('\n \t server running at 127.0.0.1 & listening on 4000'); 
-  console.log("\n \t Server Time: " + Date())
+  console.log('server running at 127.0.0.1 & listening on 4000'); 
+  console.log("Server Time: " + Date())
 })
 
 module.exports = app;
