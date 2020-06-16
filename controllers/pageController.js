@@ -1,3 +1,3 @@
 exports.index = function(req, res) {
-    res.json({ title: 'Homepage' });
+ res.render("index", { titlee: "FG Expense" })
 };
