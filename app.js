@@ -13,7 +13,11 @@ const cors = require('cors');
 const app = express();
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost:27017/mongo_test_queries', function() {
+mongoose.connect('mongodb://localhost:27017/mongo_test_queries', {
+  useNewUrlParser: true,  // for connection warning
+  useUnifiedTopology: true
+
+},function() {
 console.log('\n \t Database connection has been established successfully');
 })
 .catch(err => {
@@ -35,7 +39,7 @@ fs.readdirSync('./routes/').forEach(file => {
 })
 
 
-
+// setup middleware
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
