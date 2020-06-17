@@ -12,6 +12,7 @@ const cors = require('cors');
 
 const app = express();
 
+
 //connect to mongodb
 mongoose.connect('mongodb://localhost:27017/mongo_test_queries', function() {
 console.log('\n \t Database connection has been established successfully');
@@ -21,6 +22,34 @@ console.error('App starting error:', err.stack);
 process.exit(1);
 });
 
+
+
+
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
+// catch 404 and forward to error handler
+/* app.use((req, res, next)=> {
+  next(createError(404));
+});
+
+// error handler
+app.use((err, req, res, next) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.json({msg: err.status || 500, error: err});
+  res.render('error');
+  next();
+});
+ */
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
@@ -33,31 +62,5 @@ fs.readdirSync('./routes/').forEach(file => {
     app.use('/', file);
   }
 })
-
-
-
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-
-// catch 404 and forward to error handler
-app.use((req, res, next)=> {
-  next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
 
 module.exports = app;
