@@ -1,4 +1,4 @@
-const commentModel = require('../models/Comment');
+const commentModel = require('../models/comment');
 const userModel = require('../models/User');
 
 exports.index = function(req, res) {    
@@ -21,16 +21,16 @@ exports.createUser = async (req, res) => {
         })
     }
 };
-exports.postCommentByEmail = (req, res) =>{
-
-    const newComment = new commentModel({comment: req.body.comment, name: req.body.name, email: req.body.email});
-    newComment.save()
+exports.postCommentByEmail = async(req, res) =>{
+    const {comment, name, email}  = req.body;
+    try{
+    const newComment = new commentModel({comment, name, email});
+    await newComment.save()
     .then(comment => {
-      return userModel.findOne({email: req.body.email})
-    })
-    .then(user => {
-        user.comments.unshift(comment)
-        return user.save();
+      const user = userModel.findOne({email: req.body.email})
+      console.log(user)
+      user.comments.push(comment)
+      user.save();
     })
     .then(comment =>{
         res.status(200).json({
@@ -43,4 +43,8 @@ exports.postCommentByEmail = (req, res) =>{
         message: err.message,
         data: null
     }))
+    }
+    catch(e) {
+        res.status(400).json({status: 'Failed', message: `${e.message}`, data: null})
+    }
 }
