@@ -29,7 +29,7 @@ var userController = require("../controllers/userController");
  */
 
 // Get posts index/posts
-router.get('/',  pageController.index);
+router.get('/',  userController.index);
 //router.get('/users', userController.index);
 
 //POST - Create new user

@@ -1,4 +1,3 @@
-const commentModel = require('../models/Comment');
 const userModel = require('../models/User');
 
 exports.index = function(req, res) {    

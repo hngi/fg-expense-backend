@@ -3,13 +3,13 @@ var router = express.Router();
 //require comment controllers
 var projectsController = require('../controllers/comment/commentController');
 
-//POST - User can post comments by Name and Email
-router.post('/comments', commentController.postCommentByEmail);
+//POST - User can post comments by Name and Email (i.e '/comment')
+router.post('/', projectsController.postCommentByEmail);
 
-//POST - Flag comments
-router.post('/comments/flag/:id', commentController.flagComment);
+//POST - Flag comments (i.e '/comment/flag/:id')
+router.post('/flag/:id', projectsController.flagComment);
 
-//GET - Hide all unflagged comments
-router.get('/comments/unflagged', commentController.hideFlaggedComments);
+//GET - Hide all unflagged comments (i.e '/comment/unflagged')
+router.get('/unflagged', projectsController.hideFlaggedComments);
 
 module.exports = router;

@@ -14,15 +14,14 @@ exports.postCommentByEmail =  async(req, res) =>{
       userModel.findOne({email: req.body.email})
       .then((user) =>{
         user.comments = user.comments.push(comment)
-        user.save();
-      })
-      
-    })
-    .then(comment =>{
-        res.status(200).json({
-            status: 'Successful',
-            data: comment
-        })    
+        user.save()
+        .then(comment =>{
+            res.status(200).json({
+                status: 'Successful',
+                data: comment
+                })
+            })
+        })
     })
     .catch(err => res.status(400).json({
         status: 'Failed', 
@@ -39,7 +38,7 @@ exports.postCommentByEmail =  async(req, res) =>{
 exports.hideFlaggedComments = (req, res) =>{
     commentModel.find()
           .then((comments) =>{
-                  const filteredComments  = comments.reduce((a, o) => (!o.flag && a.push({ comment : o.comment, name: o.name, email: o.email, flag: o.flag, numOfFlags: o.numOfFlags, upVotes: o.upVotes, downVotes: o.downVotes}), a), [])
+                  const filteredComments  = comments.reduce((a, o) => (!o.flag && a.push({ _id: o._id, comment : o.comment, name: o.name, email: o.email, flag: o.flag, numOfFlags: o.numOfFlags, upVotes: o.upVotes, downVotes: o.downVotes}), a), [])
                   return res.json({status: 'Success', message: 'All Unflagged Comments', data: filteredComments})
             })
           .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null}));
