@@ -14,7 +14,7 @@ const app = express();
 
 
 //connect to mongodb
-mongoose.connect('mongodb://localhost:27017/mongo_test_queries', {
+mongoose.connect("mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/Budget?retryWrites=true&w=majority", {
   useNewUrlParser: true,  // for connection warning
   useUnifiedTopology: true
 
