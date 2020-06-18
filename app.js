@@ -13,10 +13,9 @@ const cors = require("cors");
 const app = express();
 
 //connect to mongodb
-<<<<<<< HEAD
 mongoose
   .connect(
-    "mongodb://localhost:27017/fg_expense_tracker",
+    "mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority",
     {
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
@@ -31,19 +30,6 @@ mongoose
     console.error("App starting error:", err.stack);
     process.exit(1);
   });
-=======
-mongoose.connect("mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority", {
-  useNewUrlParser: true,  // for connection warning
-  useUnifiedTopology: true
-
-},function() {
-console.log('\n \t Database connection has been established successfully');
-})
-.catch(err => {
-console.error('App starting error:', err.stack);
-process.exit(1);
-});
->>>>>>> 1768c2492c2cded337095525728bf0f6915eb717
 
 /*
     |||  I'll use route method to handle request and response circle  |||
