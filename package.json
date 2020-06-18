@@ -22,7 +22,8 @@
     "request-promise": "^4.2.5",
 
     "nodemailer": "^6.4.10",
-    "serve-favicon": "^2.5.0"
+    "serve-favicon": "^2.5.0",
+    "unirest": "^0.6.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
