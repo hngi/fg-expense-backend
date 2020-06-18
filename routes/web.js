@@ -35,6 +35,14 @@ router.get('/report/all', paymentReportController.getAllReports);
 router.get('/report/:id', paymentReportController.getReport);
 router.get('/report/download', paymentReportController.downloadReport);
 
+// Get posts index/posts
+router.get('/',  userController.index);
+//router.get('/users', userController.index);
+
+//POST - Create new user
+router.post('/user',  userController.createUser);
+
+
 /**
  * add routes for sectorController directly under here
  */
