@@ -12,6 +12,7 @@ const cors = require('cors');
 
 const app = express();
 
+
 //connect to mongodb
 mongoose.connect("mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/Budget?retryWrites=true&w=majority", {
   useNewUrlParser: true,  // for connection warning
@@ -25,6 +26,14 @@ console.error('App starting error:', err.stack);
 process.exit(1);
 });
 
+// setup middleware
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
+
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
@@ -37,31 +46,5 @@ fs.readdirSync('./routes/').forEach(file => {
     app.use('/', file);
   }
 })
-
-
-// setup middleware
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
-
-// catch 404 and forward to error handler
-app.use((req, res, next)=> {
-  next(createError(404));
-});
-
-// error handler
-app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
 
 module.exports = app;
