@@ -1,15 +1,19 @@
-const mongoose = require('mongoose')
+
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-    name: {
-       type: String,
-       required:true
+const UserSchema = new Schema(
+  {
+    name: String,
+    email: String,
+    isSubscribed: {
+      type: Boolean,
+      default: false,
     },
-},{
-   timestamps: true 
-})
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("User", UserSchema);
-
-
+const User = mongoose.model("User", UserSchema);
+module.exports = User;
