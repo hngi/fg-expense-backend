@@ -26,9 +26,6 @@ console.error('App starting error:', err.stack);
 process.exit(1);
 });
 
-
-
-
 // setup middleware
 app.use(logger('dev'));
 app.use(express.json());
@@ -37,7 +34,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
- 
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
