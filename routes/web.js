@@ -11,17 +11,16 @@ var budgetController = require('../controllers/web/budgetController');
 var sectorController = require('../controllers/web/sectorController');
 
 //demo data
-//var userController = require('../controllers/userController');
-var mdaController = require('../controllers/web/mdaController');
+var userController = require('../controllers/userController');
 
-
-// demo route
-// router.post("/users", userController.newUser);
+//demo route
+router.post("/users", userController.newUser);
 
 /**
  * add routes for projects controller directly under here
  */
-router.get('/project/all', projectsController.getAllProjects);
+
+ router.get('/project/all', projectsController.getAllProjects);
 router.get('/project/:id', projectsController.singleProject);
 
 /**
@@ -36,6 +35,14 @@ router.get('/expense/:id', expenseController.getSingleExpense);
 router.get('/report/all', paymentReportController.getAllReports);
 router.get('/report/:id', paymentReportController.getReport);
 router.get('/report/download', paymentReportController.downloadReport);
+
+// Get posts index/posts
+router.get('/',  userController.index);
+//router.get('/users', userController.index);
+
+//POST - Create new user
+router.post('/user',  userController.createUser);
+
 
 /**
  * add routes for sectorController directly under here
@@ -60,6 +67,7 @@ router.get('/refrence/search', referenceController.getParticularRefrence);
  */
 router.get('/mda/all', mdaController.getAllMdas);
 router.get('/mda/:id', mdaController.getSingleMda);
+ router.get('/mda/allhandle', mdaController.getAllHandle)
 
 /**
  * add routes for budgetController directly under here
