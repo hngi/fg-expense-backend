@@ -1,1 +1,1 @@
-module.exports.Name = function()
+module.exports.Name = function () {};
