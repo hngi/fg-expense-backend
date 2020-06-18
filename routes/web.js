@@ -5,14 +5,14 @@ var userController = require('../controllers/userController');
 
 
 // Get posts index/posts
-router.get('/', pageController.index);
+router.get('/',  pageController.index);
 //router.get('/users', userController.index);
 
 //POST - Create new user
-router.post('/user', userController.createUser);
+router.post('/user',  userController.createUser);
 
 //GET - Get all users
-router.get('/users', userController.getAllUsers);
+router.get('/users',  userController.getAllUsers);
 
 //POST - User can post comments by Name and Email
 router.post('/comments', userController.postCommentByEmail);

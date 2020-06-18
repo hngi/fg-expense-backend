@@ -6,7 +6,7 @@ exports.index = function(req, res) {
     	title: 'All Users'
     });
 };
-exports.createUser = async (req, res) => {
+exports.createUser =  async (req, res) => {
     const { name, email } = req.body;
     try{
         const newUser = new userModel({name, email});
@@ -21,7 +21,7 @@ exports.createUser = async (req, res) => {
         })
     }
 };
-exports.postCommentByEmail = async(req, res) =>{
+exports.postCommentByEmail =  async(req, res) =>{
     const {comment, name, email}  = req.body;
     try{
     const newComment = new commentModel({comment, name, email});

@@ -12,7 +12,6 @@ const cors = require('cors');
 
 const app = express();
 
-
 //connect to mongodb
 mongoose.connect("mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/Budget?retryWrites=true&w=majority", {
   useNewUrlParser: true,  // for connection warning

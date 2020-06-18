@@ -5,6 +5,7 @@ const UserSchema = new Schema({
     name: String,
     email: String,
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
+    
 })
 
 const User = mongoose.model("User", UserSchema)
