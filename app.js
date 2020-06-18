@@ -7,15 +7,17 @@ const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 // Require file system module
-const fs = require("file-system");
-const cors = require("cors");
+const fs = require('file-system');
+const cors = require('cors');
+const webRoutes = require('./routes/web');
+const commentRoutes = require('./routes/comments');
 
 const app = express();
 
 //connect to mongodb
 mongoose
   .connect(
-    "mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority",
+    'mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority',
     {
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
@@ -35,14 +37,8 @@ mongoose
     |||  I'll use route method to handle request and response circle  |||
 */
 //setup app routes
-fs.readdirSync("./routes/").forEach((file) => {
-  if (file.substr(-3) == ".js") {
-    // len = file.length;
-    // filename = file.substr(0, len-3);
-    file = require("./routes/" + file);
-    app.use("/", file);
-  }
-});
+app.use('/', webRoutes);
+app.use('/comment', commentRoutes);
 
 // setup middleware
 app.use(logger("dev"));
