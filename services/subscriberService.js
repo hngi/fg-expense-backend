@@ -10,8 +10,8 @@ const subscribe = async (param) => {
       const subscribedUser = await user.save();
       return subscribedUser;
     }
-    const user = await UserModel.create({ ...param, isSubscribed: true });
-    return user;
+    const Cuser = await UserModel.create({ ...param, isSubscribed: true });
+    return Cuser;
   } catch (error) {
     throw error;
   }
