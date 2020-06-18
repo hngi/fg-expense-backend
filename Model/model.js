@@ -4,7 +4,7 @@ const schema = mongoose.schema;
 
 let fg_expenses = new schema({
     name = String,
-    price = Number,
+    price = String,
     date = Date
 
 });
