@@ -14,14 +14,15 @@ const SubscriberController = require("../controllers/SubscriberController");
 //demo data
 var userController = require("../controllers/userController");
 
-// demo route
-// router.post("/users", userController.newUser);
+//demo route
+router.post("/users", userController.newUser);
 
 /**
  * add routes for projects controller directly under here
  */
 router.get("/project/all", projectsController.getAllProjects);
 router.get("/project/:id", projectsController.singleProject);
+
 
 /**
  * add routes for expenseController directly under here
@@ -59,6 +60,14 @@ router
   );
 router.post("/subscribers/mail", SubscriberController.mailSubscribers());
 
+// Get posts index/posts
+router.get('/',  userController.index);
+//router.get('/users', userController.index);
+
+//POST - Create new user
+router.post('/user',  userController.createUser);
+
+
 /**
  * add routes for sectorController directly under here
  */
@@ -80,8 +89,12 @@ router.get("/refrence/search", referenceController.getParticularRefrence);
 /**
  * add routes for mdaController directly under here
  */
+
+ router.get('/mda/allhandle', mdaController.getAllHandle)
+
 router.get("/mda/all", mdaController.getAllMdas);
 router.get("/mda/:id", mdaController.getSingleMda);
+
 
 /**
  * add routes for budgetController directly under here
