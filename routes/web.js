@@ -45,6 +45,7 @@ router.get("/companies/", companyController.getAllcompany);
 /**
  * add routes for mdaController directly under here
  */
+router.get("/mdas", mdaController.getAllMdas);
 
 /**
  * add routes for budgetController directly under here
