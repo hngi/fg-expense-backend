@@ -1,10 +1,65 @@
-var express = require('express')
-var router = express.Router();
-// var authorApiController = require('../controllers/api/authorApiController');
+const express = require('express');
+const router = express.Router();
+
+/**
+ * add routes and controller function directly under here:::
+ * Please, ensure to label and order your controller properly so we can 
+ * have order here
+ */
+
+//All routes and controller on Projects
+router.get('/projects/all', 
+    async (req, res, next) => {
+    try {
+      let allProjects = await Project.find()
+        .populate("company", "_id", "name")
+        .populate("mda", "_id", "name")
+        .populate("Expense");
+  
+      return res.json(allProjects);
+    } catch (err) {
+      return next(err);
+    }
+    }
+);
+// router.get('/project/:id', projectsController.singleProject);
 
 
-// API ROUTES
-// router.get('/api', authorApiController.author_list);
-// router.get('/api/new', authorApiController.author_create_get);
+
+/**
+ * add routes and controller on Expense directly under here
+ */
+
+
+/**
+ * add routes and payementReportController directly under here
+ */
+
+
+/**
+ * add routes and sectorController directly under here
+ */
+
+
+/**
+ * add routes and companyController directly under here
+ */
+
+
+/**
+ * add routes and referenceController directly under here
+ */
+
+
+/**
+ * add routes and mdaController directly under here
+ */
+
+
+/**
+ * add routes and budgetController directly under here
+ */
+
+
 
 module.exports = router;

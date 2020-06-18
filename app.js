@@ -9,8 +9,7 @@ const mongoose = require("mongoose");
 // Require file system module
 const fs = require('file-system');
 const cors = require('cors');
-const webRoutes = require('./routes/web');
-const commentRoutes = require('./routes/comments');
+
 
 const app = express();
 
@@ -22,7 +21,7 @@ mongoose
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
     },
-    function () {
+    () => {
       console.log(
         "\n \t Database connection has been established successfully"
       );
@@ -36,9 +35,6 @@ mongoose
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
-//setup app routes
-app.use('/', webRoutes);
-app.use('/comment', commentRoutes);
 
 // setup middleware
 app.use(logger("dev"));
@@ -47,6 +43,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
+
+//setup app routes
+app.use('/', 
+  require('./routes/api')
+);
+
+app.use('/comment', 
+  require('./routes/comments')
+);
+//Routes and Controllers will be merged
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
