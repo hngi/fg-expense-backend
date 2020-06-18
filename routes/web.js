@@ -1,27 +1,45 @@
 var express = require("express");
 var router = express.Router();
+//require all web controllers
+var projectsController = require("../controllers/web/projectsController");
+var paymentReportController = require("../controllers/web/paymentReportController");
+var referenceController = require("../controllers/web/referenceController");
+var mdaController = require("../controllers/web/mdaController");
+var companyController = require("../controllers/web/companyController");
+var expenseController = require("../controllers/web/expenseController");
+var budgetController = require("../controllers/web/budgetController");
+var sectorController = require("../controllers/web/sectorController");
+
 //demo data
 var userController = require("../controllers/userController");
+
 const SubscriberController = require("../controllers/SubscriberController");
 
+
+
+// demo route
+// router.post("/users", userController.newUser);
+
+/**
+ * add routes for projects controller directly under here
+ */
+
+/**
+ * add routes for expenseController directly under here
+ */
+
+/**
+ * add routes for payementReportController directly under here
+ */
+
 // Get posts index/posts
-router.get("/", pageController.index);
+router.get('/',  userController.index);
+
 //router.get('/users', userController.index);
 
 //POST - Create new user
 router.post("/user", userController.createUser);
 
-//GET - Get all users
-router.get("/users", userController.getAllUsers);
-
-//POST - User can post comments by Name and Email
-router.post("/comments", userController.postCommentByEmail);
-
-//GET - Get all comments
-router.get("/comments", userController.getAllComments);
-
-//POST - Flag comments
-router.post("/comments/flag/:id", userController.flagComment);
 
 router
   .route("/subscribers")
@@ -35,5 +53,29 @@ router
     SubscriberController.unSubscribe()
   );
 router.post("/subscribers/mail", SubscriberController.mailSubscribers());
+
+
+/**
+ * add routes for sectorController directly under here
+ */
+
+/**
+ * add routes for companyController directly under here
+ */
+
+router.get("/companies/", companyController.getAllcompany);
+
+/**
+ * add routes for referenceController directly under here
+ */
+
+/**
+ * add routes for mdaController directly under here
+ */
+
+/**
+ * add routes for budgetController directly under here
+ */
+
 
 module.exports = router;
