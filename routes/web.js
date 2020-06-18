@@ -15,7 +15,7 @@ var userController = require('../controllers/userController');
 
 // demo route
 router.post('/users', userController.newUser);
-module.exports = router;
+
 
 /**
  * add routes for projects controller directly under here
@@ -48,3 +48,5 @@ module.exports = router;
 /**
  * add routes for budgetController directly under here
  */
+
+module.exports = router;

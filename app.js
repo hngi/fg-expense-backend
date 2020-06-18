@@ -9,35 +9,36 @@ const mongoose = require('mongoose');
 // Require file system module
 const fs = require('file-system');
 const cors = require('cors');
+const webRoutes = require('./routes/web');
+const commentRoutes = require('./routes/comments');
 
 const app = express();
 
 //connect to mongodb
-mongoose.connect("mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority", {
-  useNewUrlParser: true,  // for connection warning
-  useUnifiedTopology: true
-
-},function() {
-console.log('\n \t Database connection has been established successfully');
-})
-.catch(err => {
-console.error('App starting error:', err.stack);
-process.exit(1);
-});
+mongoose
+  .connect(
+    'mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority',
+    {
+      useNewUrlParser: true, // for connection warning
+      useUnifiedTopology: true,
+    },
+    function () {
+      console.log(
+        '\n \t Database connection has been established successfully'
+      );
+    }
+  )
+  .catch((err) => {
+    console.error('App starting error:', err.stack);
+    process.exit(1);
+  });
 
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
 //setup app routes
-fs.readdirSync('./routes/').forEach(file => {
-  if(file.substr(-3) == '.js') {
-    // len = file.length;
-    // filename = file.substr(0, len-3);
-    file = require('./routes/' + file);
-    app.use('/', file);
-  }
-})
-
+app.use('/', webRoutes);
+app.use('/comment', commentRoutes);
 
 // setup middleware
 app.use(logger('dev'));
@@ -48,7 +49,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 // catch 404 and forward to error handler
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
   next(createError(404));
 });
 
@@ -62,6 +63,5 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
-
 
 module.exports = app;
