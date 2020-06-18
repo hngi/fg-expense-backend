@@ -30,15 +30,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-<<<<<<< HEAD
-server.listen(port, ()=>{
-  console.log(`\n \t server running at 127.0.0.1 & listening on ${port}`); 
-  console.log("\n \t Server Time: " + Date())
-=======
 server.listen(port, () => {
   console.log(`\n \t server running at 127.0.0.1 & listening on ${port}`);
   console.log('\n \t Server Time: ' + Date());
->>>>>>> 196f5caa98d6eeaa1fc3388eef366fc8b0c7d5f8
 });
 server.on('error', onError);
 server.on('listening', onListening);

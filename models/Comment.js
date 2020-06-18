@@ -11,7 +11,23 @@ const CommentSchema = new Schema({
     },
     email:{ 
         type: String
-    }
+    },
+    flag: { 
+        type: Boolean,
+        default: false
+    },
+    numOfFlags: { 
+        type: Number,
+        default: 0
+    },
+    upVotes: { 
+        type: Number,
+        default: 0
+    },
+    downVotes: { 
+        type: Number,
+        default:0
+    },
     
 });
 const Comment = mongoose.model("Comment", CommentSchema);
