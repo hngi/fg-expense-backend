@@ -18,11 +18,8 @@
     "json-stringify-safe": "^5.0.1",
     "mongoose": "^5.9.16",
     "morgan": "~1.9.1",
-<<<<<<< HEAD
     "request": "^2.88.2",
-=======
     "nodemailer": "^6.4.10",
->>>>>>> b5dd8ea894c6914358d867f6228846f2c10c2de6
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
