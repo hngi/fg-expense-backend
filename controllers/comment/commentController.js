@@ -1,5 +1,9 @@
+const Request = require("request");
+const stringify = require('json-stringify-safe');
+
 const commentModel = require('../../models/Comment');
 const userModel = require('../../models/User');
+const replyModel = require('../../models/reply');
 
 /**
  * export.method = req, res function
@@ -13,6 +17,7 @@ exports.postCommentByEmail =  async(req, res) =>{
     .then(comment => {
       userModel.findOne({email: req.body.email})
       .then((user) =>{
+          console.log(user)
         user.comments = user.comments.push(comment)
         user.save()
         .then(comment =>{
@@ -34,11 +39,49 @@ exports.postCommentByEmail =  async(req, res) =>{
     }
 };
 
+exports.postReply = async (req, res) =>{
+    const {reply, email} = req.body;
+    try{
+    const replyDetails =  new replyModel({reply, email })
+    replyDetails.noOfReplies += 1;
+    await replyDetails.save()
+    .then((reply) =>{
+        console.log(reply)
+         commentModel.findById({_id: req.params.id})
+    .then((comment) => {
+        console.log(comment.replies, reply.id)
+        comment.replies.unshift(reply);
+        comment.save()
+        .then( details => res.json({ status: 'Success', msg: 'Reply posted', data: details}))
+        })
+    })
+        
+    }
+    catch(e) {
+        res.status(400).json({status: 'Failed', message: `${e.message}`, data: null})
+    }
+};
+
+//return all comments and replies
+exports.getAllCommentsAndReplies = (req, res) =>{
+    /* const url = 'http://localhost:4000/comment/unflagged';
+    Request.get(url, (error, response, body) => {
+    if(error) {
+        return  res.status(400).json({status: 'Failed', message: err.message, data: null});
+    }
+    console.dir(JSON.parse(body));
+    return res.json({ status: 'Success', msg: 'All comments and replies', data: JSON.parse(body)})
+}); */
+     commentModel.find()
+        .then(comments => res.json({ status: 'Success', msg: 'All comments and replies', data: comments}))
+        .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null}));
+    };
+
 //This retrieves only unflagged comments
 exports.hideFlaggedComments = (req, res) =>{
-    commentModel.find()
+    commentModel.find().populate('replies')
           .then((comments) =>{
-                  const filteredComments  = comments.reduce((a, o) => (!o.flag && a.push({ _id: o._id, comment : o.comment, name: o.name, email: o.email, flag: o.flag, numOfFlags: o.numOfFlags, upVotes: o.upVotes, downVotes: o.downVotes}), a), [])
+                  const filteredComments  = comments.reduce((a, o) => (!o.flag && a.push({ _id: o._id, comment : o.comment, name: o.name, email: o.email, replies: o.replies, flag: o.flag, numOfFlags: o.numOfFlags, upVotes: o.upVotes, downVotes: o.downVotes}), a), [])
                   return res.json({status: 'Success', message: 'All Unflagged Comments', data: filteredComments})
             })
           .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null}));
