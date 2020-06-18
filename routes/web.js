@@ -73,8 +73,8 @@ router.post('/user',  userController.createUser);
 /**
  * add routes for sectorController directly under here
  */
-//router.get("/sector/all", sectorController.getASector);
-//router.get("/sector/:id", sectorController.getAllSectors);
+//router.get("/sector/all", sectorController.getAllSectors);
+router.get("/sector/:id", sectorController.getASector);
 
 /**
  * add routes for companyController directly under here
