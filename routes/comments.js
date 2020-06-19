@@ -2,13 +2,13 @@ var express = require("express");
 var router = express.Router();
 
 //require comment controllers
-var commentController = require('../controllers/comment/commentController');
+var commentController = require("../controllers/comment/commentController");
 
 // this should have been changed to commentController, i dont want to change it at this point
-var projectsController = require('../controllers/comment/commentController');
+var projectsController = require("../controllers/comment/commentController");
 
 // GET: route to get all comments for a particular expenses - airon
-router.get('/expense/:expense_id/comments', commentController.getAll);
+router.get("/expenses/:expense_id/comments", commentController.getAll);
 
 //POST - User can post comments by Name and Email (i.e '/comment')
 router.post("/", projectsController.postCommentByEmail);
@@ -17,10 +17,10 @@ router.post("/", projectsController.postCommentByEmail);
 router.put("/:id/upvotes", projectsController.upvoteComment);
 
 //POST replies - user can post reply to a comment
-router.post('/:id/reply', projectsController.postReply);
+router.post("/:id/replies", projectsController.postReply);
 
 // GET - All comments and replies
-router.get('/replies', projectsController.getAllCommentsAndReplies);
+router.get("/replies", projectsController.getAllCommentsAndReplies);
 
 //POST - Flag comments (i.e '/comment/flag/:id')
 router.post("/flag/:id", projectsController.flagComment);
@@ -28,7 +28,7 @@ router.post("/flag/:id", projectsController.flagComment);
 //GET - Hide all unflagged comments (i.e '/comment/unflagged')
 router.get("/unflagged", projectsController.hideFlaggedComments);
 
-//GET - Delete Individual comments by ID and Email (I.E '/comment/remove')
-router.delete('/remove/:id', projectsController.deleteComment);
+//GET - Delete Individual comments by ID and Email (I.E '/comment/:id')
+router.delete("/:id", projectsController.deleteComment);
 
 module.exports = router;

@@ -20,13 +20,13 @@ router.post("/users", userController.createUser);
 /**
  * add routes for projects controller directly under here
  */
-router.get("/project/all", projectsController.getAllProjects);
-//router.get("/project/:id", projectsController.singleProject);
+router.get("/projects/all", projectsController.getAllProjects);
+//router.get("/projects/:id", projectsController.singleProject);
 
 /**
  * add routes for expenseController directly under here
  */
-router.get("/expense/all", expenseController.getAllExpenses);
+router.get("/expenses/all", expenseController.getAllExpenses);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
 /**
@@ -65,13 +65,13 @@ router.get("/", userController.index);
 //router.get('/users', userController.index);
 
 //POST - Create new user
-router.post("/user", userController.createUser);
+router.post("/users", userController.createUser);
 
 /**
  * add routes for sectorController directly under here
  */
-//router.get("/sector/all", sectorController.getAllSectors);
-router.get("/sector/:id", sectorController.getASector);
+//router.get("/sectors/all", sectorController.getAllSectors);
+router.get("/sectors/:id", sectorController.getASector);
 
 /**
  * add routes for companyController directly under here
@@ -86,15 +86,15 @@ router.post("/company/search/:q", companyController.searchCompany);
 /**
  * add routes for referenceController directly under here
  */
-//router.get("/refrence/all", referenceController.getAllRefrences);
-//router.get("/refrence/search", referenceController.getParticularRefrence);
+//router.get("/refrences/all", referenceController.getAllRefrences);
+//router.get("/refrences/search", referenceController.getParticularRefrence);
 
 /**
  * add routes for mdaController directly under here
  */
 
-//router.get("/mda/all", mdaController.getAllMdas);
-//router.get("/mda/:id", mdaController.getSingleMda);
+//router.get("/mdas/all", mdaController.getAllMdas);
+//router.get("/mdas/:id", mdaController.getSingleMda);
 
 /**
  * add routes for budgetController directly under here
