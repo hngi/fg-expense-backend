@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
+const Schema = mongoose.Schema;
 
-const MDASchema = new Schema(
+const CompanySchema = new Schema(
   {
     name: {
       type: String,
@@ -9,11 +9,8 @@ const MDASchema = new Schema(
     },
     twitter_handle: {
       type: String,
-      required: true,
     },
-    head: {
-      type: String,
-    },
+    head: { type: String },
     head_handle: { type: String },
   },
   {
@@ -21,4 +18,4 @@ const MDASchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('mdas', MDASchema);
+module.exports = mongoose.model('companies', CompanySchema);
