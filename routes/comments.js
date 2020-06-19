@@ -28,4 +28,7 @@ router.post("/flag/:id", projectsController.flagComment);
 //GET - Hide all unflagged comments (i.e '/comment/unflagged')
 router.get("/unflagged", projectsController.hideFlaggedComments);
 
+//GET - Delete Individual comments by ID and Email (I.E '/comment/remove')
+router.delete('/remove/:id', projectsController.deleteComment);
+
 module.exports = router;
