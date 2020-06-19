@@ -7,8 +7,13 @@ var commentController = require("../controllers/comment/commentController");
 // this should have been changed to commentController, i dont want to change it at this point
 var projectsController = require("../controllers/comment/commentController");
 
-// GET: route to get all comments for a particular expenses - airon
-router.get("/expenses/:expense_id/comments", commentController.getAll);
+/* 
+* GET: route to get all comments for a particular expense report
+* expense_id should be passed as a query string 
+* example: /comments?expense_id=1
+* this adjustment is intended to accommodate the change in route pattern by a team member
+*/
+router.get("/", commentController.getAll);
 
 //POST - User can post comments by Name and Email (i.e '/comment')
 router.post("/", projectsController.postCommentByEmail);
