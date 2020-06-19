@@ -1,6 +1,12 @@
+const Request = require("request");
+const stringify = require('json-stringify-safe');
+
+
 let rp = require('request-promise');
+
 const commentModel = require('../../models/Comment');
 const userModel = require('../../models/User');
+const replyModel = require('../../models/reply');
 
 
 /**
@@ -55,35 +61,121 @@ exports.postCommentByEmail =  async(req, res) =>{
     .then(comment => {
       userModel.findOne({email: req.body.email})
       .then((user) =>{
+          console.log(user)
         user.comments = user.comments.push(comment)
         user.save()
         .then(comment =>{
             res.status(200).json({
-                status: 'Successful',
-                data: comment
-                })
-            })
+              status: "Successful",
+              data: comment,
+            });
+          });
+        });
+      })
+      .catch((err) =>
+        res.status(400).json({
+          status: "Failed",
+          message: err.message,
+          data: null,
+        })
+      );
+  } catch (e) {
+    res
+      .status(400)
+      .json({ status: "Failed", message: `${e.message}`, data: null });
+  }
+};
+
+exports.upvoteComment = (req, res) => {
+  commentModel
+    .findById(req.params.id)
+    .then((comment) => {
+      const updatedComment = { ...comment, upVotes: (comment.upVotes += 1) };
+      return res.json({
+        status: "Success",
+        data: updatedComment,
+      });
+    })
+    .catch((err) => {
+      return res.status(400).json({
+        status: "Failed",
+        message: err.message,
+        data: null,
+      });
+    });
+};
+
+exports.postReply = async (req, res) =>{
+    const {reply, email} = req.body;
+    try{
+    const replyDetails =  new replyModel({reply, email })
+    replyDetails.noOfReplies += 1;
+    await replyDetails.save()
+    .then((reply) =>{
+        console.log(reply)
+         commentModel.findById({_id: req.params.id})
+    .then((comment) => {
+        console.log(comment.replies, reply.id)
+        comment.replies.unshift(reply);
+        comment.save()
+        .then( details => res.json({ status: 'Success', msg: 'Reply posted', data: details}))
         })
     })
-    .catch(err => res.status(400).json({
-        status: 'Failed', 
-        message: err.message,
-        data: null
-    }))
+        
     }
     catch(e) {
         res.status(400).json({status: 'Failed', message: `${e.message}`, data: null})
     }
 };
 
+//return all comments and replies
+exports.getAllCommentsAndReplies = (req, res) =>{
+    /* const url = 'http://localhost:4000/comment/unflagged';
+    Request.get(url, (error, response, body) => {
+    if(error) {
+        return  res.status(400).json({status: 'Failed', message: err.message, data: null});
+    }
+    console.dir(JSON.parse(body));
+    return res.json({ status: 'Success', msg: 'All comments and replies', data: JSON.parse(body)})
+}); */
+     commentModel.find()
+        .then(comments => res.json({ status: 'Success', msg: 'All comments and replies', data: comments}))
+        .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null}));
+    };
+
 //This retrieves only unflagged comments
-exports.hideFlaggedComments = (req, res) =>{
-    commentModel.find()
-          .then((comments) =>{
-                  const filteredComments  = comments.reduce((a, o) => (!o.flag && a.push({ _id: o._id, comment : o.comment, name: o.name, email: o.email, flag: o.flag, numOfFlags: o.numOfFlags, upVotes: o.upVotes, downVotes: o.downVotes}), a), [])
-                  return res.json({status: 'Success', message: 'All Unflagged Comments', data: filteredComments})
-            })
-          .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null}));
+exports.hideFlaggedComments = (req, res) => {
+  commentModel
+    .find()
+    .then((comments) => {
+      const filteredComments = comments.reduce(
+        (a, o) => (
+          !o.flag &&
+            a.push({
+              _id: o._id,
+              comment: o.comment,
+              name: o.name,
+              email: o.email,
+              flag: o.flag,
+              numOfFlags: o.numOfFlags,
+              upVotes: o.upVotes,
+              downVotes: o.downVotes,
+            }),
+          a
+        ),
+        []
+      );
+      return res.json({
+        status: "Success",
+        message: "All Unflagged Comments",
+        data: filteredComments,
+      });
+    })
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ status: "Failed", message: err.message, data: null })
+    );
 };
 
 exports.flagComment = async (req, res) =>{
@@ -99,3 +191,13 @@ exports.flagComment = async (req, res) =>{
         res.status(400).json({status: 'Failed', message: `${e.message}`, data: null})
     }
 };
+exports.deleteComment = async (req, res) =>{
+    try{
+        const deleteComment = await commentModel.findByIdAndDelete({_id: req.params.id});
+        if(!deleteComment) return res.status(404).json({status: 'Failed', message: "Failed to delete comment: comment not found", data: null});
+        res.status(200).json({status: 'Sucess', message: 'Comment deleted', data: null})
+    }
+    catch(e){
+        res.status(400).json({status: 'Failed', message: `${e.message}`, data: null});
+    }
+}
