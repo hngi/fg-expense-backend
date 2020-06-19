@@ -7,17 +7,17 @@ const favicon = require("serve-favicon");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 // Require file system module
-const fs = require('file-system');
-const cors = require('cors');
-const webRoutes = require('./routes/web');
-const commentRoutes = require('./routes/comments');
+const fs = require("file-system");
+const cors = require("cors");
+const webRoutes = require("./routes/web");
+const commentRoutes = require("./routes/comments");
 
 const app = express();
 
 //connect to mongodb
 mongoose
   .connect(
-    'mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority',
+    "mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority",
     {
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
@@ -33,8 +33,6 @@ mongoose
     process.exit(1);
   });
 
-
-
 // setup middleware
 app.use(logger("dev"));
 app.use(express.json());
@@ -44,8 +42,8 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cors());
 
 //setup app routes
-app.use('/', webRoutes);
-app.use('/comment', commentRoutes);
+app.use("/", webRoutes);
+app.use("/comments", commentRoutes);
 
 /*
     |||  I'll use route method to handle request and response circle  |||

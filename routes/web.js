@@ -15,24 +15,18 @@ const SubscriberController = require("../controllers/SubscriberController");
 var userController = require("../controllers/userController");
 
 //demo route
-<<<<<<< HEAD
-// router.post("/users", userController.newUser);
-=======
 router.post("/users", userController.createUser);
->>>>>>> upstream/develop
 
 /**
  * add routes for projects controller directly under here
  */
-router.get("/project/all", projectsController.getAllProjects);
-//router.get("/project/:id", projectsController.singleProject);
-
-
+router.get("/projects/all", projectsController.getAllProjects);
+//router.get("/projects/:id", projectsController.singleProject);
 
 /**
  * add routes for expenseController directly under here
  */
-router.get("/expense/all", expenseController.getAllExpenses);
+router.get("/expenses/all", expenseController.getAllExpenses);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
 /**
@@ -41,7 +35,7 @@ router.get("/expense/all", expenseController.getAllExpenses);
 //router.get("/report/all", paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
-router.get("/sortreport/:fkey?/:skey?",paymentReportController.sortReport)
+router.get("/sortreport/:fkey?/:skey?", paymentReportController.sortReport);
 
 // Get posts index/posts
 //router.get("/", userController.index);
@@ -67,39 +61,36 @@ router
 router.post("/subscribers/mail", SubscriberController.mailSubscribers());
 
 // Get posts index/posts
-router.get('/',  userController.index);
+router.get("/", userController.index);
 //router.get('/users', userController.index);
 
 //POST - Create new user
-router.post('/user',  userController.createUser);
-
+router.post("/users", userController.createUser);
 
 /**
  * add routes for sectorController directly under here
  */
-//router.get("/sector/all", sectorController.getAllSectors);
-router.get("/sector/:id", sectorController.getASector);
+//router.get("/sectors/all", sectorController.getAllSectors);
+router.get("/sectors/:id", sectorController.getASector);
 
 /**
  * add routes for companyController directly under here
  */
-//router.get("/company/all", companyController.getAllCompanies);
-//router.get("/company/:id", companyController.getAcompany);
+//router.get("/companies/all", companyController.getAllCompanies);
+//router.get("/companies/:id", companyController.getAcompany);
 
 /**
  * add routes for referenceController directly under here
  */
-//router.get("/refrence/all", referenceController.getAllRefrences);
-//router.get("/refrence/search", referenceController.getParticularRefrence);
+//router.get("/refrences/all", referenceController.getAllRefrences);
+//router.get("/refrences/search", referenceController.getParticularRefrence);
 
 /**
  * add routes for mdaController directly under here
  */
 
-//router.get("/mda/all", mdaController.getAllMdas);
-//router.get("/mda/:id", mdaController.getSingleMda);
-
-
+//router.get("/mdas/all", mdaController.getAllMdas);
+//router.get("/mdas/:id", mdaController.getSingleMda);
 
 /**
  * add routes for budgetController directly under here
