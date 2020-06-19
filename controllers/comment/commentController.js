@@ -101,7 +101,7 @@ exports.upvoteComment = (req, res) => {
     if (err) {
       res.status(400).json({ status: "Failed", message: err, data: null });
     } else {
-      res.status(200).json(body);
+      res.status(202).json(body);
     }
   });
 };
