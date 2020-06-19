@@ -2,8 +2,8 @@
  * exports.method = req, res function
  *
  */
-const Company = require("../../models/company");
-const apiresponse = require("../../utility/apiResponse");
+const Company = require('../../models/companies');
+const apiresponse = require('../../utility/apiResponse');
 
 exports.getAllcompany = (req, res, next) => {
   const allCompanyQuery = Company.find({}).select({
@@ -17,8 +17,25 @@ exports.getAllcompany = (req, res, next) => {
 
   allCompanyQuery.exec((err, companies) => {
     if (err) {
-      return apiresponse.ErrorResponse(res, "Something went wrong");
+      return apiresponse.ErrorResponse(res, 'Something went wrong');
     }
     return apiresponse.successResponseWithData(res, companies);
   });
+};
+
+exports.getCompany = (req, res, next) => {
+  const companyId = req.params.id;
+  const company = Company.find(companyId)
+    .populate('Head')
+    .populate('Project')
+    .then((companyProfile) => {
+      res.json(companyProfile);
+    });
+};
+exports.getCompanies = (req, res, next) => {
+  Company.find({})
+    .then((companies) => {
+      res.send(companies);
+    })
+    .catch(next);
 };

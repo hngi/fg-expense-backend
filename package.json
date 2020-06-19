@@ -18,10 +18,9 @@
     "json-stringify-safe": "^5.0.1",
     "mongoose": "^5.9.16",
     "morgan": "~1.9.1",
+    "nodemailer": "^6.4.10",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-
-    "nodemailer": "^6.4.10",
     "serve-favicon": "^2.5.0",
     "unirest": "^0.6.0"
   },
