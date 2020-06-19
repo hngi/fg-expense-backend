@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "body-parser": "^1.19.0",
+    "combined-stream": "^1.0.8",
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
@@ -21,7 +22,6 @@
     "nodemailer": "^6.4.10",
     "request": "^2.88.2",
     "request-promise": "^4.2.5",
-    "nodemailer": "^6.4.10",
     "serve-favicon": "^2.5.0",
     "unirest": "^0.6.0"
   },
