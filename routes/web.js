@@ -15,7 +15,9 @@ const SubscriberController = require("../controllers/SubscriberController");
 var userController = require("../controllers/userController");
 
 //demo route
+
 router.post("/users", userController.createUser);
+
 
 /**
  * add routes for projects controller directly under here
