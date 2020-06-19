@@ -1,5 +1,4 @@
 var mongoose = require("mongoose");
-
 const sector=require('../../models/Sector')
 var getASector=async function(req,res){
     const id=req.params.id;
@@ -9,7 +8,7 @@ var getASector=async function(req,res){
         })
     }
     try {
-        const fsector=await sector.findById(id);
+        const fsector=await sector.findById(id).populate('MAD').populate('Budget').populate('Payment')
         if(fsector){
             res.json(fsector)
         }else{
