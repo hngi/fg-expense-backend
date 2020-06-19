@@ -32,7 +32,7 @@ router.get("/expenses/all", expenseController.getAllExpenses);
 /**
  * add routes for payementReportController directly under here
  */
-//router.get("/report/all", paymentReportController.getAllReports);
+router.get("/report/all", paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
 router.get("/sortreport/:fkey?/:skey?", paymentReportController.sortReport);
