@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 //require all web controllers
-var projectsController = require('../controllers/web/projectsController');
+// var projectsController = require('../controllers/web/projectsController');
 var paymentReportController = require('../controllers/web/paymentReportController');
-var referenceController = require('../controllers/web/referenceController');
+// var referenceController = require('../controllers/web/referenceController');
 var mdaController = require('../controllers/web/mdaController');
 var companyController = require('../controllers/web/companyController');
 var expenseController = require('../controllers/web/expenseController');
@@ -21,7 +21,7 @@ router.post('/users', userController.createUser);
 /**
  * add routes for projects controller directly under here
  */
-router.get('/projects/all', projectsController.getAllProjects);
+// router.get('/projects/all', projectsController.getAllProjects);
 //router.get("/projects/:id", projectsController.singleProject);
 
 /**
@@ -37,6 +37,11 @@ router.get('/report/all', paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
 router.get('/companies', companyController.getCompanies);
+router.post('/companies/create', companyController.createCompany);
+
+
+
+
 router.get('/sortreport/:fkey?/:skey?', paymentReportController.sortReport);
 
 // Get posts index/posts
@@ -102,6 +107,8 @@ router.post('/company/search/:q', companyController.searchCompany);
  * add routes for expensesController directly under here
  */
 
-router.get('/expenses/all', expenseController.getExpenses);
+router.get('/expenses', expenseController.getExpenses);
+router.post('/expenses/create', expenseController.createExpenses);
+
 
 module.exports = router;

@@ -5,15 +5,21 @@
 const Company = require('../../models/companies');
 const apiresponse = require('../../utility/apiResponse');
 
+exports.createCompany = async (req, res) => {
+const { name, twitter_handle, head, head_handle } = req.body;
+let company = new Company({ name, twitter_handle, head, head_handle });
+  await company.save()
+
+  //reponse message
+  res.status(200)
+    .send({ 
+      status: true,
+      message: 'Company created successfully'
+    });
+}
+
 exports.getAllcompany = (req, res, next) => {
-  const allCompanyQuery = Company.find({}).select({
-    name: 1,
-    _id: 0,
-    tweet_handle: 1,
-    Projects: 1,
-    expenses: 1,
-    DOC: 1,
-  });
+  const allCompanyQuery = Company.find()
 
   allCompanyQuery.exec((err, companies) => {
     if (err) {
@@ -33,7 +39,7 @@ exports.getCompany = (req, res, next) => {
     });
 };
 exports.getCompanies = (req, res, next) => {
-  Company.find({})
+  Company.find()
     .then((companies) => {
       res.send(companies);
     })
