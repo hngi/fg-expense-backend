@@ -178,24 +178,26 @@ exports.hideFlaggedComments = (req, res) => {
     );
 };
 
-exports.flagComment = async (req, res) => {
-  try {
-    const flagComment = await commentModel.findById({ _id: req.params.id });
-    if (!flagComment)
-      return res
-        .status(404)
-        .json({ status: "Failed", message: "No comment found", data: null });
-    flagComment.flag = true;
-    flagComment.numOfFlags += 1;
-    flagComment.save();
-    res.json({
-      status: "Success",
-      message: "Comment Flagged",
-      data: flagComment,
-    });
-  } catch (e) {
-    res
-      .status(400)
-      .json({ status: "Failed", message: `${e.message}`, data: null });
-  }
+exports.flagComment = async (req, res) =>{
+    try{
+        const flagComment = await commentModel.findById({_id: req.params.id});
+        if(!flagComment) return res.status(404).json({status: 'Failed', message: "No comment found", data: null });
+        flagComment.flag = true;
+        flagComment.numOfFlags +=1;
+        flagComment.save();
+        res.json({status: 'Success', message: "Comment Flagged", data: flagComment})
+    }
+    catch(e) {
+        res.status(400).json({status: 'Failed', message: `${e.message}`, data: null})
+    }
+};
+exports.deleteComment = async (req, res) =>{
+    try{
+        const deleteComment = await commentModel.findByIdAndDelete({_id: req.params.id});
+        if(!deleteComment) return res.status(404).json({status: 'Failed', message: "Failed to delete comment: comment not found", data: null});
+        res.status(200).json({status: 'Sucess', message: 'Comment deleted', data: null})
+    }
+    catch(e){
+        res.status(400).json({status: 'Failed', message: `${e.message}`, data: null});
+    }
 }
