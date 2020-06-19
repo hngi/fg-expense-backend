@@ -1,5 +1,7 @@
+/* eslint-disable */
+
 //creates a database
-db use mongo_test_queries;
+// db use mongo_test_queries;
 
 //prepare initial data insert 
 data = [

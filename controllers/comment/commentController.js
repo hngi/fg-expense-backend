@@ -17,6 +17,7 @@ const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com/";
 exports.getAll = [
   async function (req, res, next) {
     let expense_id = req.query.expense_id;
+
     try {
       var options = {
         uri: `https://my-json-server.typicode.com/airondev/json-server/expenses/${expense_id}/comments`, //this will be replaced with uri to comments api service

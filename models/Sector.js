@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SectorSchema = new Schema(
@@ -10,7 +10,8 @@ const SectorSchema = new Schema(
     MDAs: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'MDA',
+
+        ref: "MDA",
       },
     ],
     // Projects: [{
@@ -20,13 +21,13 @@ const SectorSchema = new Schema(
     budgets: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Budget',
+        ref: "Budget",
       },
     ],
     expenses: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Payment',
+        ref: "Payment",
       },
     ],
   },
@@ -35,4 +36,4 @@ const SectorSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('Sector', SectorSchema);
+module.exports = mongoose.model("Sector", SectorSchema);
