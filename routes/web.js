@@ -76,8 +76,12 @@ router.get("/sectors/:id", sectorController.getASector);
 /**
  * add routes for companyController directly under here
  */
-//router.get("/companies/all", companyController.getAllCompanies);
-//router.get("/companies/:id", companyController.getAcompany);
+router.get("/company/all", companyController.getAllcompany);
+
+// search for company
+router.post("/company/search/:q", companyController.searchCompany);
+
+//router.get("/company/:id", companyController.getAcompany);
 
 /**
  * add routes for referenceController directly under here
