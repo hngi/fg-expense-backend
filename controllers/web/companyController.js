@@ -22,3 +22,21 @@ exports.getAllcompany = (req, res, next) => {
     return apiresponse.successResponseWithData(res, companies);
   });
 };
+
+exports.searchCompany = (req, res, next) => {
+  const { q } = req.params;
+  if (q && q.trim() !== "") {
+    const reqexQ = new RegExp(q, "i");
+    Company.find(
+      { $or: [{ name: reqexQ }, { tweet_handle: reqexQ }] },
+      "name",
+      (err, d) => {
+        if (d && err === null && d.status !== 3) {
+          return apiResponse.successResponseWithData(res, "success", d);
+        } else {
+          return apiResponse.ErrorResponse(res, "Opps!");
+        }
+      }
+    );
+  }
+};
