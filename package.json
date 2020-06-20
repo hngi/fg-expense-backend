@@ -3,6 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "build": "npm run start && npm run build",
+    "install": "npm run start && npm install",
     "start": "node ./bin/www",
     "startDev": "nodemon ./bin/www",
     "test": "cross-env NODE_ENV=test jest",
