@@ -72,7 +72,7 @@ router.post("/companies/allfunds", companyController.getCompanyFunds);
 /**
  * add routes for mdaController directly under here
  */
-//router.post("/mdas/create", mdaController.createMda);
+router.post("/mdas/create", mdaController.createMda);
 router.get("/mdas", mdaController.getAllMdas);
 router.get("/heads", mdaController.getAllHeads);
 
