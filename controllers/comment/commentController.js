@@ -76,6 +76,7 @@ exports.postCommentByEmail = async (req, res) => {
     credentials: "same-origin",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify(data),
   })
@@ -170,6 +171,7 @@ exports.flagComment = async (req, res) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify(data),
   })
@@ -195,6 +197,7 @@ exports.flagReplies = async (req, res) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
+      Accept: "application/json",
     },
     body: JSON.stringify(data),
   })
