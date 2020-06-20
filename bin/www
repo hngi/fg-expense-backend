@@ -31,8 +31,8 @@ var server = http.createServer(app);
  */
 
 server.listen(port, () => {
-  console.log(`\n \t server running at 127.0.0.1 & listening on ${port}`);
-  console.log("\n \t Server Time: " + Date());
+  console.log(`\n \t server listening on ${port}`);
+  console.log('\n \t Server Time: ' + Date());
 });
 server.on("error", onError);
 server.on("listening", onListening);

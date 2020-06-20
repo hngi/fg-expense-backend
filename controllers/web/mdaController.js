@@ -5,6 +5,19 @@
 
 const MDA = require("../../models/MDA");
 
+exports.createMda = async (req, res) => {
+  const { name, twitter_handle, head, head_handle } = req.body;
+  let mda = new MDA ({ name, twitter_handle, head, head_handle });
+    await mda.save();
+
+     //reponse message
+  res.status(200)
+    .send({ 
+      status: true,
+      message: 'Expenses created successfully'
+    });
+}
+
 exports.getAllMdas = async (req, res) => {
   try {
     const allMDAs = await MDA.find()
