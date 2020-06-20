@@ -60,24 +60,9 @@ const getAllSubscribers = () => async (req, res, next) => {
   }
 };
 
-const mailSubscribers = () => async (req, res, next) => {
-  try {
-    const message = { subject: "", html: "", ...req.body.message };
-    const data = await SubscriberService.mailSubscribers(message);
-    return res.status(200).json({
-      message: "mailed subscribers:",
-      status: 200,
-      data,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   subscribe,
   unSubscribe,
   getAllSubscribers,
-  mailSubscribers,
   subscribeRouteValidation,
 };
