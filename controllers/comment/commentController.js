@@ -138,7 +138,7 @@ exports.postReply = async (req, res) => {
   }
 };
 
-//return all comments and replies
+//return all comments and replies without flags
 exports.getAllCommentsAndReplies = (req, res) =>{
     const url = 'https://fgn-comments-service.herokuapp.com/reports/comments';
     Request.get(url, (error, response, body) => {
@@ -153,40 +153,6 @@ exports.getAllCommentsAndReplies = (req, res) =>{
         .catch(err => res.status(400).json({status: 'Failed', message: err.message, data: null})); */
     };
 
-//This retrieves only unflagged comments
-exports.hideFlaggedComments = (req, res) => {
-  commentModel
-    .find()
-    .then((comments) => {
-      const filteredComments = comments.reduce(
-        (a, o) => (
-          !o.flag &&
-            a.push({
-              _id: o._id,
-              comment: o.comment,
-              name: o.name,
-              email: o.email,
-              flag: o.flag,
-              numOfFlags: o.numOfFlags,
-              upVotes: o.upVotes,
-              downVotes: o.downVotes,
-            }),
-          a
-        ),
-        []
-      );
-      return res.json({
-        status: "Success",
-        message: "All Unflagged Comments",
-        data: filteredComments,
-      });
-    })
-    .catch((err) =>
-      res
-        .status(400)
-        .json({ status: "Failed", message: err.message, data: null })
-    );
-};
 
 //Flag a comment
 exports.flagComment = async (req, res) =>{
