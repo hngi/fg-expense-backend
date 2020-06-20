@@ -1,0 +1,66 @@
+[
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4260fcc" },
+    "mdas": { "$oid": "5e850bd669a10e42d07414c0" },
+    "companies": { "$oid": "5e8508ea69a10e42d07414be" },
+    "expenseDesc": "Allowances Paid Minister to travel for International Conference",
+    "expenseAmount": 3200000,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a39e4262fce" },
+    "mdas": { "$oid": "5e850bd239a10e42d07414ad" },
+    "companies": { "$oid": "5e8508ea49a10ee3d07414be" },
+    "expenseDesc": "Repair of Niger Delta Pipeline",
+    "expenseAmount": 45000000,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4260fed" },
+    "mdas": { "$oid": "5e850cd439a10e41d07415e1" },
+    "companies": { "$oid": "5e8508ea69a15a35d07414b1" },
+    "expenseDesc": "Construction of Power Plant in Ogun State",
+    "expenseAmount": 87500000,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa8d750a38e4260fcb" },
+    "mdas": { "$oid": "5e850bd679c10e41d0741ae2" },
+    "companies": { "$oid": "5e8508ea87a10e42d074163d" },
+    "expenseDesc": "Rehabilitation of Senate Building",
+    "expenseAmount": 32800000,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4260d0c" },
+    "mdas": { "$oid": "5e850bd839a10e41d07415ad" },
+    "companies": { "$oid": "5e8508ea49a10e42d18414be" },
+    "expenseDesc": "Contract for Aso Villa Interior rehabilitation",
+    "expenseAmount": 46700000,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4260abb" },
+    "mdas": { "$oid": "5e857bd83aa11e41d07415ad" },
+    "companies": { "$oid": "5e8508be69a10e42da8414ce" },
+    "expenseDesc": "Payment for items for COVID-19 outbreak",
+    "expenseAmount": 27671024.12,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4132fcc" },
+    "mdas": { "$oid": "5e850cd439a10e41d07415e1" },
+    "companies": { "$oid": "5e8508ea69a15a35d07414b1" },
+    "expenseDesc": "CONSTRUCTION OF 60KW SOLAR MINI GRIDS IN TAKUM",
+    "expenseAmount": 57869120.98,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  },
+  {
+    "_id": { "$oid": "5e8186aa5d750a38e4260eda" },
+    "mdas": { "$oid": "5e850cd439a10e41d07415e1" },
+    "companies": { "$oid": "5e8508ea69a10e42d07414be" },
+    "expenseDesc": "CEMENT SUPPLY FOR NEW MINISTRY OFFICE COMPLEX CONSTRUCTION",
+    "expenseAmount": 57869120.98,
+    "paymentDate": { "$date": { "$numberLong": "1583902800000" } }
+  }
+]

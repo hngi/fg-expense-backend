@@ -1,50 +1,37 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
+
 //require all web controllers
-var projectsController = require("../controllers/web/projectsController");
-var paymentReportController = require("../controllers/web/paymentReportController");
-var referenceController = require("../controllers/web/referenceController");
-var mdaController = require("../controllers/web/mdaController");
-var companyController = require("../controllers/web/companyController");
-var expenseController = require("../controllers/web/expenseController");
-var budgetController = require("../controllers/web/budgetController");
-var sectorController = require("../controllers/web/sectorController");
+const projectsController = require("../controllers/web/projectsController");
+const paymentReportController = require("../controllers/web/paymentReportController");
+const mdaController = require("../controllers/web/mdaController");
+const companyController = require("../controllers/web/companyController");
+const expenseController = require("../controllers/web/expenseController");
+const sectorController = require("../controllers/web/sectorController");
 const SubscriberController = require("../controllers/SubscriberController");
-
-//demo data
-var userController = require("../controllers/userController");
-
-//demo route
-//router.post("/users", userController.newUser);
 
 /**
  * add routes for projects controller directly under here
  */
-router.get("/project/all", projectsController.getAllProjects);
-//router.get("/project/:id", projectsController.singleProject);
-
-
+router.post("/projects/create", projectsController.createProject);
+router.get("/projects", projectsController.getAllProjects);
+//router.get("/projects/:id", projectsController.singleProject);
 
 /**
  * add routes for expenseController directly under here
  */
-//router.get("/expense/all", expenseController.getAllExpenses);
+router.get("/expenses", expenseController.getExpenses);
+router.get("/companies/funds", expenseController.getCompanyFunds);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
 /**
  * add routes for payementReportController directly under here
  */
-//router.get("/report/all", paymentReportController.getAllReports);
+router.get("/reports/sort/:fkey?/:skey?", paymentReportController.sortReport);
+router.post("/reports/create", paymentReportController.createPaymentReport);
+router.get("/reports", paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
-router.get("/sortreport/:fkey?/:skey?",paymentReportController.sortReport)
-
-// Get posts index/posts
-//router.get("/", userController.index);
-//router.get('/users', userController.index);
-
-//POST - Create new user
-//router.post("/user", userController.createUser);
 
 /**
  * Routes for newsletter service
@@ -55,52 +42,46 @@ router
   .post(
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.subscribe()
-  )
-  .delete(
-    SubscriberController.subscribeRouteValidation(),
-    SubscriberController.unSubscribe()
   );
-router.post("/subscribers/mail", SubscriberController.mailSubscribers());
-
-// Get posts index/posts
-//router.get('/',  userController.index);
-//router.get('/users', userController.index);
-
-//POST - Create new user
-//router.post('/user',  userController.createUser);
-
+router.route("/subscribers/:id").delete(SubscriberController.unSubscribe());
 
 /**
  * add routes for sectorController directly under here
  */
-//router.get("/sector/all", sectorController.getAllSectors);
-router.get("/sector/:id", sectorController.getASector);
+//router.get("/sectors/all", sectorController.getAllSectors);
+router.get("/sectors/:id", sectorController.getASector);
 
 /**
  * add routes for companyController directly under here
  */
-//router.get("/company/all", companyController.getAllCompanies);
-//router.get("/company/:id", companyController.getAcompany);
+router.get("/companies", companyController.getCompanies);
+router.post("/companies/create", companyController.createCompany);
 
-/**
- * add routes for referenceController directly under here
- */
-//router.get("/refrence/all", referenceController.getAllRefrences);
-//router.get("/refrence/search", referenceController.getParticularRefrence);
+// search for company
+router.post("/companies/search/:q", companyController.searchCompany);
+
+//get all company funds and project awarded
+router.post("/companies/allfunds", companyController.getCompanyFunds);
+
+//router.get("/companies/:id", companyController.getAcompany);
 
 /**
  * add routes for mdaController directly under here
  */
-
-//router.get("/mda/all", mdaController.getAllMdas);
-//router.get("/mda/:id", mdaController.getSingleMda);
-
-
+router.post("/mdas/create", mdaController.createMda);
+router.get("/mdas", mdaController.getAllMdas);
+//router.get("/mdas/:id", mdaController.getSingleMda);
 
 /**
- * add routes for budgetController directly under here
+ * add routes for expensesController directly under here
  */
-//router.get("/budget/search", budgetController.searchBudget);
-//router.get("/budget/all", budgetController.getAllBudgets);
+
+router.get("/expenses", expenseController.getExpenses);
+router.post("/expenses/create", expenseController.createExpenses);
+
+//index route redirecting to the main FE home page
+// router.get("/", (req, res) => {
+//   res.redirect("http://expenseng.com", 301);
+// });
 
 module.exports = router;
