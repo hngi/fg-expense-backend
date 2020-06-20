@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const SubscriberService = require("../services/subscriberService");
 
 const subscribeRouteValidation = () => (req, res, next) => {
