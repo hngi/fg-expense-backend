@@ -1,0 +1,44 @@
+[
+  {
+    "_id": { "$oid": "5e8508ea69a10e42d07414be" },
+    "name": "Dangote Group",
+    "twitter_handle": "@dangote_group",
+    "head": "Aliko Dangote",
+    "head_handle": "@a_dangote"
+  },
+  {
+    "_id": { "$oid": "5e8509eb69a10e42d074ed51" },
+    "name": "WATERBASE ENGINEERING LIMITED",
+    "twitter_handle": "@waterbase_ng",
+    "head": "Chima Nwogu",
+    "head_handle": "@c_nwogu"
+  },
+  {
+    "_id": { "$oid": "5e8508be69a10e42da8414ce" },
+    "name": "AKINYOSOYE  OLADOTUN",
+    "twitter_handle": "@akinsonye_oladotun",
+    "head": "AKINYOSOYE  OLADOTUN",
+    "head_handle": "@akinsonye_oladotun"
+  },
+  {
+    "_id": { "$oid": "5e8508ea49a10ee3d07414be" },
+    "name": "MARITIME PROJECT SERVICES LIMITED",
+    "twitter_handle": "@maritimeprojectservice",
+    "head": "Moses Babalola",
+    "head_handle": "@m_babalola"
+  },
+  {
+    "_id": { "$oid": "5e8508ea69a15a35d07414b1" },
+    "name": "GEOID CONSULT LTD",
+    "twitter_handle": "@geoidconsultltd",
+    "head": "Aluko Francis",
+    "head_handle": "@a_francis"
+  },
+  {
+    "_id": { "$oid": "5e8508ea49a10e42d18414be" },
+    "name": "JAY JAY BADMUS INVESTMENT LTD",
+    "twitter_handle": "@jayjay_badmusltd",
+    "head": "Martin King",
+    "head_handle": "@martinking"
+  }
+]

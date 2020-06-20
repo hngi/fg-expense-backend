@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const payment_report = new Schema({
@@ -6,7 +6,7 @@ const payment_report = new Schema({
          type: Schema.Types.ObjectId,
          ref: 'Head'
       }],
-      Project: {
+      project: {
          type: Schema.Types.ObjectId,
          ref: 'Project'
       }, 
@@ -18,16 +18,10 @@ const payment_report = new Schema({
          type: Schema.Types.ObjectId,
          ref: 'Head'
       }],
-      budgets: [{
-         type: Schema.Types.ObjectId,
-         ref: 'Budget'
-      }], //this might be a One-to-Many Relationship
-      
+      amount: { type: Schema.Types.Number }
 },{
    timestamps: true
 }
 )
 
 module.exports = mongoose.model("Payment", payment_report);
-
-
