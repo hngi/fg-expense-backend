@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 const SubscriberService = require("../services/subscriberService");
 
 const subscribeRouteValidation = () => (req, res, next) => {
@@ -13,6 +14,12 @@ const subscribeRouteValidation = () => (req, res, next) => {
 const subscribe = () => async (req, res, next) => {
   try {
     const { email } = req.body;
+    if (
+      !email ||
+      !email.match(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
+    ) {
+      return res.status(400).json("please provide a valid email");
+    }
     const data = await SubscriberService.subscribe({ email });
     return res.status(200).json({
       message: "subscribed successfully:",
@@ -26,8 +33,11 @@ const subscribe = () => async (req, res, next) => {
 
 const unSubscribe = () => async (req, res, next) => {
   try {
-    const { email } = req.body;
-    const data = await SubscriberService.unSubscribe({ email });
+    const { id } = req.params;
+    const data = await SubscriberService.unSubscribe({ _id: id });
+    if (!data) {
+      res.status(404).json({ message: "no subscriber with that ID" });
+    }
     return res.status(200).json({
       message: "unsubscribed successfully:",
       status: 200,
@@ -51,24 +61,9 @@ const getAllSubscribers = () => async (req, res, next) => {
   }
 };
 
-const mailSubscribers = () => async (req, res, next) => {
-  try {
-    const message = { subject: "", html: "", ...req.body.message };
-    const data = await SubscriberService.mailSubscribers(message);
-    return res.status(200).json({
-      message: "mailed subscribers:",
-      status: 200,
-      data,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   subscribe,
   unSubscribe,
   getAllSubscribers,
-  mailSubscribers,
   subscribeRouteValidation,
 };

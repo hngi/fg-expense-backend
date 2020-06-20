@@ -2,9 +2,9 @@
  * exports.method = req, res function
  *
  */
-const Company = require('../../models/companies');
-const Expenses = require('../../models/expense');
-const apiresponse = require('../../utility/apiResponse');
+const Company = require("../../models/companies");
+const Expenses = require("../../models/expense");
+const apiresponse = require("../../utility/apiResponse");
 
 exports.createCompany = async (req, res) => {
   const { name, twitter_handle, head, head_handle } = req.body;
@@ -14,16 +14,16 @@ exports.createCompany = async (req, res) => {
   //reponse message
   res.status(200).send({
     status: true,
-    message: 'Company created successfully',
+    message: "Company created successfully",
   });
 };
 
-exports.getAllcompany = (req, res, next) => {
+exports.getAllCompanies = (req, res) => {
   const allCompanyQuery = Company.find();
 
   allCompanyQuery.exec((err, companies) => {
     if (err) {
-      return apiresponse.ErrorResponse(res, 'Something went wrong');
+      return apiresponse.ErrorResponse(res, "Something went wrong");
     }
     return apiresponse.successResponseWithData(res, companies);
   });
@@ -32,8 +32,8 @@ exports.getAllcompany = (req, res, next) => {
 exports.getCompany = (req, res) => {
   const companyId = req.params.id;
   Company.find(companyId)
-    .populate('Head')
-    .populate('Project')
+    .populate("Head")
+    .populate("Project")
     .then((companyProfile) => {
       res.json(companyProfile);
     });
@@ -48,16 +48,16 @@ exports.getCompanies = (req, res, next) => {
 
 exports.searchCompany = (req, res) => {
   const { q } = req.params;
-  if (q && q.trim() !== '') {
-    const reqexQ = new RegExp(q, 'i');
+  if (q && q.trim() !== "") {
+    const reqexQ = new RegExp(q, "i");
     Company.find(
-      { $or: [{ name: reqexQ }, { tweet_handle: reqexQ }] },
-      'name',
+      { $or: [{ name: reqexQ }, { twitter_handle: reqexQ }] },
+      "name",
       (err, d) => {
         if (d && err === null && d.status !== 3) {
-          return apiresponse.successResponseWithData(res, 'success', d);
+          return apiresponse.successResponseWithData(res, "success", d);
         } else {
-          return apiresponse.ErrorResponse(res, 'Opps!');
+          return apiresponse.ErrorResponse(res, "Opps!");
         }
       }
     );
@@ -66,13 +66,12 @@ exports.searchCompany = (req, res) => {
 
 exports.getCompanyFunds = (req, res, next) => {
   Expenses.find({})
-    .populate('mdas')
-    .populate('companies')
+    .populate("mdas")
+    .populate("companies")
     .then((expenses) => {
       let expense = {};
       let result = [];
       expenses.forEach((exp) => {
-        console.log(exp);
         expense.mda = exp.mdas.name;
         expense.mdaHandle = exp.mdas.twitter_handle;
         expense.companyName = exp.companies.name;
@@ -85,8 +84,8 @@ exports.getCompanyFunds = (req, res, next) => {
         result.push(expense);
       });
       res.status(200).json({
-        status: 'success',
-        message: 'All Companies and Funds Received',
+        status: "success",
+        message: "All Companies and Funds Received",
         data: { result },
       });
     })
