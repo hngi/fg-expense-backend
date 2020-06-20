@@ -10,7 +10,6 @@ const SectorSchema = new Schema(
     MDAs: [
       {
         type: Schema.Types.ObjectId,
-
         ref: "MDA",
       },
     ],
