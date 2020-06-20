@@ -17,33 +17,33 @@ const app = express();
 //connect to mongodb
 mongoose
   .connect(
-    "mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority",
+    'mongodb+srv://fg-expense-tracker:backend@fg-expense-tracker-c1uom.mongodb.net/fg-expense-tracker?retryWrites=true&w=majority',
     {
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
     },
     () => {
       console.log(
-        "\n \t Database connection has been established successfully"
+        '\n \t Database connection has been established successfully'
       );
     }
   )
   .catch((err) => {
-    console.error("App starting error:", err.stack);
+    console.error('App starting error:', err.stack);
     process.exit(1);
   });
 
 // setup middleware
-app.use(logger("dev"));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 //setup app routes
-app.use("/", webRoutes);
-app.use("/comments", commentRoutes);
+app.use('/', webRoutes);
+app.use('/comments', commentRoutes);
 
 /*
     |||  I'll use route method to handle request and response circle  |||

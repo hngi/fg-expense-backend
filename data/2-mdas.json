@@ -1,0 +1,50 @@
+[
+  {
+    "_id": { "$oid": "5e850bd669a10e42d07414c0" },
+    "name": "Ministry of Finance",
+    "short_name": "Finance",
+    "twitter_handle": "@nigeriamfa",
+    "head": "Zainab Ahmed",
+    "head_handle": "@z_ahmed"
+  },
+  {
+    "_id": { "$oid": "5e850bd239a10e42d07414ad" },
+    "name": "Ministry of Petroleum Resources",
+    "short_name": "Petroleum",
+    "twitter_handle": "@fmprng",
+    "head": "Muhammadu Buhari",
+    "head_handle": "@MBuhari"
+  },
+  {
+    "_id": { "$oid": "5e850bd839a10e41d07415ad" },
+    "name": "Ministry of Interior",
+    "short_name": "Interior",
+    "twitter_handle": "@minofinteriorng",
+    "head": "Rauf Aregbesola",
+    "head_handle": "@r_aregbesola"
+  },
+  {
+    "_id": { "$oid": "5e850cd439a10e41d07415e1" },
+    "name": "Ministry of Power",
+    "short_name": "Power",
+    "twitter_handle": "@powerminigeria",
+    "head": "Saleh Mamman",
+    "head_handle": "@s_Mamman"
+  },
+  {
+    "_id": { "$oid": "5e857bd83aa11e41d07415ad" },
+    "name": "Ministry of Health",
+    "short_name": "Health",
+    "twitter_handle": "@fmohng",
+    "head": "Osagie Ehanire",
+    "head_handle": "@o_ehanire"
+  },
+  {
+    "_id": { "$oid": "5e850bd679c10e41d0741ae2" },
+    "name": "Ministry of Works and Housing",
+    "short_name": "Works & Housing",
+    "twitter_handle": "@fmwhning",
+    "head": "Babatunde Fashola",
+    "head_handle": "@b_fashola"
+  }
+]
