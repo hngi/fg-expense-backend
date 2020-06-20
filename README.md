@@ -1,23 +1,18 @@
-**What does this PR do?**
+# FG Expense Backend Project
 
-Summarise the main tasks handled in the pull request
+This is a project for providing backend services to various applications in the FG Expense project
 
-**description of Task to be completed?**
+## Contibuting to this project
 
-Describe (in detail) what the task completed in the pull request does as per the relevant task
+Fork and clone this repo if you have not done so.
 
-**How should this be manually tested?**
+### Before working on a new feature:
+- If your cloned is not new, sync your local develop branch with the upstream develop. [How-To](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/syncing-a-fork)
+- Create a new branch for the feature you are working on
+- Run npm install to add latest dependencies
 
-Give bullet point instructions on how to setup the code and test it manually (Assume no prior experience on JS or code)
+### Before making a pull request/submitting your PR for review:
 
-**Any background context you want to provide?**
-
-Any pertinent information that should be considered
-
-**What is the link to the user story on clubhouse if available?**
-
-[#0000](https://app.clubhouse.io/startng/project/42914/fg-expense-tracker)
-
-**Questions:**
-
-If something is unclear or you want some questions to be addressed by your peers, mention them here
+- Run `npm run lint` to find errors in code syntax/format
+- and Run `npm run lint:fix` to fix all fixable errors in source code and format with prettier
+- Ensure you fix any linting errors displayed after running any of the above commands
