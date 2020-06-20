@@ -3,8 +3,9 @@
  *
  */
 
-const Expenses = require('../../models/expense');
-const { getAllMdas } = require('./mdaController');
+const Expenses = require("../../models/expense");
+const Project = require("../../models/Project");
+// const { getAllMdas } = require("./mdaController");
 
 exports.createExpenses = async (req, res) => {
   const { mdas, companies, expenseAmount, expenseDesc, paymentDate } = req.body;
@@ -20,15 +21,15 @@ exports.createExpenses = async (req, res) => {
   //reponse message
   res.status(200).send({
     status: true,
-    message: 'Expenses created successfully',
+    message: "Expenses created successfully",
   });
 };
 
-var ObjectId = require('mongoose').Types.ObjectId;
+// var ObjectId = require("mongoose").Types.ObjectId;
 exports.getExpenses = (req, res, next) => {
   Expenses.find({})
-    .populate('mdas')
-    .populate('companies')
+    .populate("mdas")
+    .populate("companies")
     .then((expenses) => {
       //   let expense = {
       //     project= expenses.expenseDesc,
@@ -38,8 +39,8 @@ exports.getExpenses = (req, res, next) => {
       //     company: expenses.companies,
       //   };
       res.status(200).json({
-        status: 'success',
-        message: 'All expenses retrieved',
+        status: "success",
+        message: "All expenses retrieved",
         data: { expenses },
       });
     })
@@ -49,28 +50,28 @@ exports.getExpenses = (req, res, next) => {
 exports.getAllExpenseAmount = async (req, res) => {
   try {
     const expenses = await Project.find({})
-      .populate('MDAs', '_id name')
-      .populate('Companies', '_id name');
+      .populate("MDAs", "_id name")
+      .populate("Companies", "_id name");
     const totalExpense = expenses.reduce((a, b) => {
       return a + b.expenses;
     }, 0);
 
     return res.status(200).json({
-      status: 'success',
-      message: 'Total and breakdown of all expenses',
+      status: "success",
+      message: "Total and breakdown of all expenses",
       data: { totalExpense, expenses },
     });
   } catch (err) {
     return res
       .status(400)
-      .json({ status: 'Failed', message: err.message, data: null });
+      .json({ status: "Failed", message: err.message, data: null });
   }
 };
 
 exports.getCompanyFunds = (req, res, next) => {
   Expenses.find({})
-    .populate('mdas')
-    .populate('companies')
+    .populate("mdas")
+    .populate("companies")
     .then((expenses) => {
       let expense = {};
       let result = [];
@@ -88,8 +89,8 @@ exports.getCompanyFunds = (req, res, next) => {
         result.push(expense);
       });
       res.status(200).json({
-        status: 'success',
-        message: 'All Companyies and Funds Received',
+        status: "success",
+        message: "All Companyies and Funds Received",
         data: { result },
       });
     })
