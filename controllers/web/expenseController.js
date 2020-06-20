@@ -3,8 +3,8 @@
  *
  */
 
-const Expenses = require('../../models/expense');
-var ObjectId = require('mongoose').Types.ObjectId;
+const Expenses = require("../../models/expense");
+var ObjectId = require("mongoose").Types.ObjectId;
 exports.getExpenses = (req, res, next) => {
   Expenses.find({})
     .populate('mdas')
@@ -26,7 +26,7 @@ exports.getExpenses = (req, res, next) => {
     .catch(next);
 };
 
-const Project = require('../../models/Project');
+// const Project = require("../../models/Project");
 
 exports.getAllExpenseAmount = async (req, res) => {
   try {

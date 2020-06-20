@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -11,6 +12,21 @@ const fs = require('file-system');
 const cors = require('cors');
 const webRoutes = require('./routes/web');
 const commentRoutes = require('./routes/comments');
+=======
+// const createError = require("http-errors");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
+// const favicon = require("serve-favicon");
+// const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+// Require file system module
+// const fs = require("file-system");
+const cors = require("cors");
+const webRoutes = require("./routes/web");
+const commentRoutes = require("./routes/comments");
+>>>>>>> 513ab62cd1623ffaa24284745ff99e9cab31931d
 
 const app = express();
 
