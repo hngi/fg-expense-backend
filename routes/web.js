@@ -42,12 +42,13 @@ router
   .post(
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.subscribe()
-  )
+  );
+router
+  .route("/subscribers/:id")
   .delete(
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.unSubscribe()
   );
-router.post("/subscribers/mail", SubscriberController.mailSubscribers());
 
 /**
  * add routes for sectorController directly under here
