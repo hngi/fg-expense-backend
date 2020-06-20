@@ -1,9 +1,28 @@
 const unirest = require("unirest");
 const apiresponse = require("../../utility/apiResponse");
-const { insertMany } = require("../../models/MDA");
+const Payment = require("../../models/payment_report");
+// const { insertMany } = require("../../models/MDA");
 const APIKEY = ""; // Spreadsheets micro service
 
-var sortReport = async function (req, res) {
+exports.createPaymentReport = async (req, res) => {
+  const { minister, project, companies, company_chairman, amount } = req.body;
+  let payment_report = new payment_report({
+    minister,
+    project,
+    companies,
+    company_chairman,
+    amount,
+  });
+  payment_report.save();
+
+  //reponse message
+  res.status(200).send({
+    status: true,
+    message: "Expenses created successfully",
+  });
+};
+
+exports.sortReport = async function (req, res) {
   // seting enum values for mothes
 
   const monthEnum = {
@@ -26,7 +45,7 @@ var sortReport = async function (req, res) {
 
   unirest
     .get(APIKEY)
-    .then((response) => {
+    .then(() => {
       const fkey = req.params.fkey;
       const skey = req.params.skey;
       //dum data for testing
@@ -132,7 +151,7 @@ var sortReport = async function (req, res) {
           });
         }
       } else if (Number(fkey) >= 2018 && Number(fkey) <= 2020) {
-        var farray = unordered.filter((item) => {
+        farray = unordered.filter((item) => {
           return item.yaer == fkey;
         });
         farray.sort((a, b) => (Number(a.amount) < Number(b.amount) ? 1 : -1));
@@ -157,20 +176,12 @@ var sortReport = async function (req, res) {
 };
 
 // Get All Payment Reports
-const getAllReports = async (req, res) => {
-  const reports = await Payment.find(
-    {},
-    { minister: 1, Project: 1, companies: 1, company_chairman: 1, budgets: 1, _id: 0 }
-  );
+exports.getAllReports = async (req, res) => {
+  const reports = await Payment.find();
   reports.exec((err, payments) => {
     if (err) {
       return apiresponse.ErrorResponse(res, "Something went wrong");
     }
     return apiresponse.successResponseWithData(res, payments);
   });
-};
-
-module.exports = {
-  sortReport,
-  getAllReports,
 };
