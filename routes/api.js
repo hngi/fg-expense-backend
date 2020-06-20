@@ -1,7 +1,6 @@
-var express = require('express')
+var express = require("express");
 var router = express.Router();
 // var authorApiController = require('../controllers/api/authorApiController');
-
 
 // API ROUTES
 // router.get('/api', authorApiController.author_list);

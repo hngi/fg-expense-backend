@@ -17,7 +17,7 @@
 //       Projects: [{
 //          type: Schema.Types.ObjectId,
 //          ref: 'Project'
-//       }], 
+//       }],
 //       // companies: [{
 //       //    type: Schema.Types.ObjectId,
 //       //    ref: 'Company'
@@ -36,5 +36,3 @@
 // )
 
 // module.exports = mongoose.model("MDA", MDASchema);
-
-
