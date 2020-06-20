@@ -98,29 +98,33 @@ exports.getCompanyFunds = (req, res, next) => {
 };
 
 /*
-*Returns Total monthly expenses by all MDAs
-*/
+ *Returns Total monthly expenses by all MDAs
+ */
 exports.getTotalMonthlyExpenses = async (req, res) => {
   try {
     await Expenses.aggregate([
-        { $group: { 
-          _id: { month: {$month: "$paymentDate"}, year: {$year: "$paymentDate"} }, 
-          total : {$sum: "$expenseAmount"}
-         }
-        }
+      {
+        $group: {
+          _id: {
+            month: { $month: "$paymentDate" },
+            year: { $year: "$paymentDate" },
+          },
+          total: { $sum: "$expenseAmount" },
+        },
+      },
     ]).exec((err, result) => {
       if (err) throw err;
-      data = [];
-      for(i= 0; i<=result.length-1; i++){
-         data.push({
-            total:  result[i].total,
-            month:  result[i]._id.month,
-            year:  result[i]._id.year,
-          })  
+      let data = [];
+      for (let i = 0; i <= result.length - 1; i++) {
+        data.push({
+          total: result[i].total,
+          month: result[i]._id.month,
+          year: result[i]._id.year,
+        });
       }
       return res.status(200).json({
-        status: 'success',
-        message: 'Total Monthly Expenses by of all MDAs',
+        status: "success",
+        message: "Total Monthly Expenses by of all MDAs",
         data,
         // result, - decided not to pass result, since it may be difficult for frontend to handle
       });
@@ -128,28 +132,29 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
   } catch (err) {
     return res
       .status(400)
-      .json({ status: 'Failed', message: err.message, data: null });
+      .json({ status: "Failed", message: err.message, data: null });
   }
 };
-
 
 exports.getExpensesByYearAndMonth = async (req, res) => {
   try {
     // FInd by Year and Month
-        let year = req.params.year;
-        let month = req.params.month;
-        const expenses = await Expenses.find({"paymentDate": {
-          '$lt': Date(`${year}-${month}`)
-        }});
-    
+    let year = req.params.year;
+    let month = req.params.month;
+    const expenses = await Expenses.find({
+      paymentDate: {
+        $lt: Date(`${year}-${month}`),
+      },
+    });
+
     return res.status(200).json({
-      status: 'success',
-      message: 'Total and breakdown of all expenses',
-      data: {expenses},
+      status: "success",
+      message: "Total and breakdown of all expenses",
+      data: { expenses },
     });
   } catch (err) {
     return res
       .status(400)
-      .json({ status: 'Failed', message: err.message, data: null });
+      .json({ status: "Failed", message: err.message, data: null });
   }
 };
