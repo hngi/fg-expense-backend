@@ -2,8 +2,8 @@
  * exports.method = req, res function
  *
  */
-const Company = require('../../models/companies');
-const apiresponse = require('../../utility/apiResponse');
+const Company = require("../../models/companies");
+const apiresponse = require("../../utility/apiResponse");
 
 exports.createCompany = async (req, res) => {
 const { name, twitter_handle, head, head_handle } = req.body;
@@ -23,17 +23,17 @@ exports.getAllcompany = (req, res, next) => {
 
   allCompanyQuery.exec((err, companies) => {
     if (err) {
-      return apiresponse.ErrorResponse(res, 'Something went wrong');
+      return apiresponse.ErrorResponse(res, "Something went wrong");
     }
     return apiresponse.successResponseWithData(res, companies);
   });
 };
 
-exports.getCompany = (req, res, next) => {
+exports.getCompany = (req, res) => {
   const companyId = req.params.id;
-  const company = Company.find(companyId)
-    .populate('Head')
-    .populate('Project')
+  Company.find(companyId)
+    .populate("Head")
+    .populate("Project")
     .then((companyProfile) => {
       res.json(companyProfile);
     });
@@ -44,10 +44,9 @@ exports.getCompanies = (req, res, next) => {
       res.send(companies);
     })
     .catch(next);
-
 };
 
-exports.searchCompany = (req, res, next) => {
+exports.searchCompany = (req, res) => {
   const { q } = req.params;
   if (q && q.trim() !== "") {
     const reqexQ = new RegExp(q, "i");
@@ -56,10 +55,11 @@ exports.searchCompany = (req, res, next) => {
       "name",
       (err, d) => {
         if (d && err === null && d.status !== 3) {
-          return apiResponse.successResponseWithData(res, "success", d);
+          return apiresponse.successResponseWithData(res, "success", d);
         } else {
-          return apiResponse.ErrorResponse(res, "Opps!");
+          return apiresponse.ErrorResponse(res, "Opps!");
         }
       }
     );
-  }};
+  }
+};

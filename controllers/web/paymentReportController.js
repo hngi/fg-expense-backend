@@ -1,6 +1,7 @@
 const unirest = require("unirest");
 const apiresponse = require("../../utility/apiResponse");
-const { insertMany } = require("../../models/MDA");
+const Payment = require("../../models/payment_report");
+// const { insertMany } = require("../../models/MDA");
 const APIKEY = ""; // Spreadsheets micro service
 
 
@@ -41,7 +42,7 @@ exports.sortReport = async function (req, res) {
 
   unirest
     .get(APIKEY)
-    .then((response) => {
+    .then(() => {
       const fkey = req.params.fkey;
       const skey = req.params.skey;
       //dum data for testing
@@ -147,7 +148,7 @@ exports.sortReport = async function (req, res) {
           });
         }
       } else if (Number(fkey) >= 2018 && Number(fkey) <= 2020) {
-        var farray = unordered.filter((item) => {
+        farray = unordered.filter((item) => {
           return item.yaer == fkey;
         });
         farray.sort((a, b) => (Number(a.amount) < Number(b.amount) ? 1 : -1));
@@ -175,7 +176,14 @@ exports.sortReport = async function (req, res) {
 exports.getAllReports = async (req, res) => {
   const reports = await Payment.find(
     {},
-    { minister: 1, Project: 1, companies: 1, company_chairman: 1, budgets: 1, _id: 0 }
+    {
+      minister: 1,
+      Project: 1,
+      companies: 1,
+      company_chairman: 1,
+      budgets: 1,
+      _id: 0,
+    }
   );
   reports.exec((err, payments) => {
     if (err) {

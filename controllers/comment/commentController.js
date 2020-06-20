@@ -1,5 +1,5 @@
 const request = require("request");
-const stringify = require("json-stringify-safe");
+// const stringify = require("json-stringify-safe");
 
 let rp = require("request-promise");
 
@@ -15,8 +15,9 @@ const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com/";
  * get all comments on a particular expense report from comments microservice
  */
 exports.getAll = [
-  async function (req, res, next) {
+  async function (req, res) {
     let expense_id = req.query.expense_id;
+
     try {
       var options = {
         uri: `https://my-json-server.typicode.com/airondev/json-server/expenses/${expense_id}/comments`, //this will be replaced with uri to comments api service

@@ -45,13 +45,11 @@ exports.getAllMdas = async (req, res) => {
   }
 };
 
-exports.getAllHandle = async (req, res, next) => {
+exports.getAllHandle = async (req, res) => {
   try {
-    const MdaHandle = await MDA.find({}, { name: 1, tweet_handle: 1 }).populate(
-      "Head",
-      "name",
-      "tweet_handle"
-    ).exec()
+    const MdaHandle = await MDA.find({}, { name: 1, tweet_handle: 1 })
+      .populate("Head", "name", "tweet_handle")
+      .exec();
     if (!MdaHandle.length) {
       return res.status(400).json({
         status: "False",
@@ -71,5 +69,3 @@ exports.getAllHandle = async (req, res, next) => {
     });
   }
 };
-
-

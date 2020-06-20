@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const MDASchema = new Schema(
@@ -21,4 +21,4 @@ const MDASchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('mdas', MDASchema);
+module.exports = mongoose.model("mdas", MDASchema);
