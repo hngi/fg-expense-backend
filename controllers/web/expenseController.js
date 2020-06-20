@@ -6,18 +6,23 @@
 const Expenses = require('../../models/expense');
 const { getAllMdas } = require('./mdaController');
 
-exports.createExpenses = async (req,res) => {
+exports.createExpenses = async (req, res) => {
   const { mdas, companies, expenseAmount, expenseDesc, paymentDate } = req.body;
-  let expenses = new Expenses({ mdas, companies, expenseAmount, expenseDesc, paymentDate });
-    await expenses.save();
-
-    //reponse message
-  res.status(200)
-  .send({ 
-    status: true,
-    message: 'Expenses created successfully'
+  let expenses = new Expenses({
+    mdas,
+    companies,
+    expenseAmount,
+    expenseDesc,
+    paymentDate,
   });
-}
+  await expenses.save();
+
+  //reponse message
+  res.status(200).send({
+    status: true,
+    message: 'Expenses created successfully',
+  });
+};
 
 var ObjectId = require('mongoose').Types.ObjectId;
 exports.getExpenses = (req, res, next) => {
@@ -40,7 +45,6 @@ exports.getExpenses = (req, res, next) => {
     })
     .catch(next);
 };
-
 
 exports.getAllExpenseAmount = async (req, res) => {
   try {
@@ -85,7 +89,7 @@ exports.getCompanyFunds = (req, res, next) => {
       });
       res.status(200).json({
         status: 'success',
-        message: 'All expenses retrieved',
+        message: 'All Companyies and Funds Received',
         data: { result },
       });
     })

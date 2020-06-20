@@ -1,4 +1,4 @@
-var express = require("express");
+var express = require('express');
 var router = express.Router();
 //require all web controllers
 var projectsController = require('../controllers/web/projectsController');
@@ -12,43 +12,32 @@ var sectorController = require('../controllers/web/sectorController');
 const SubscriberController = require('../controllers/SubscriberController');
 
 //demo data
-var userController = require("../controllers/userController");
+var userController = require('../controllers/userController');
 
 //demo route
-<<<<<<< HEAD
 router.post('/users', userController.createUser);
-=======
-router.post("/users", userController.createUser);
->>>>>>> 513ab62cd1623ffaa24284745ff99e9cab31931d
 
 /**
  * add routes for projects controller directly under here
  */
-router.get("/projects/all", projectsController.getAllProjects);
+router.get('/projects/all', projectsController.getAllProjects);
 //router.get("/projects/:id", projectsController.singleProject);
 
 /**
  * add routes for expenseController directly under here
  */
-<<<<<<< HEAD
 router.get('/expenses/all', expenseController.getExpenses);
 router.get('/companies/funds', expenseController.getCompanyFunds);
-=======
-router.get("/expenses/all", expenseController.getExpenses);
->>>>>>> 513ab62cd1623ffaa24284745ff99e9cab31931d
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
 /**
  * add routes for payementReportController directly under here
  */
-router.get("/report/all", paymentReportController.getAllReports);
+router.get('/report/all', paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
 router.get('/companies', companyController.getCompanies);
 router.post('/companies/create', companyController.createCompany);
-
-
-
 
 router.get('/sortreport/:fkey?/:skey?', paymentReportController.sortReport);
 
@@ -63,7 +52,7 @@ router.get('/sortreport/:fkey?/:skey?', paymentReportController.sortReport);
  * Routes for newsletter service
  */
 router
-  .route("/subscribers")
+  .route('/subscribers')
   .get(SubscriberController.getAllSubscribers())
   .post(
     SubscriberController.subscribeRouteValidation(),
@@ -73,28 +62,31 @@ router
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.unSubscribe()
   );
-router.post("/subscribers/mail", SubscriberController.mailSubscribers());
+router.post('/subscribers/mail', SubscriberController.mailSubscribers());
 
 // Get posts index/posts
-router.get("/", userController.index);
+router.get('/', userController.index);
 //router.get('/users', userController.index);
 
 //POST - Create new user
-router.post("/users", userController.createUser);
+router.post('/users', userController.createUser);
 
 /**
  * add routes for sectorController directly under here
  */
 //router.get("/sectors/all", sectorController.getAllSectors);
-router.get("/sectors/:id", sectorController.getASector);
+router.get('/sectors/:id', sectorController.getASector);
 
 /**
  * add routes for companyController directly under here
  */
-router.get("/company/all", companyController.getAllcompany);
+router.get('/company/all', companyController.getAllcompany);
 
 // search for company
-router.post("/company/search/:q", companyController.searchCompany);
+router.post('/company/search/:q', companyController.searchCompany);
+
+//get all company funds and project awarded
+router.post('/company/allfunds', companyController.getCompanyFunds);
 
 //router.get("/company/:id", companyController.getAcompany);
 
@@ -117,8 +109,6 @@ router.post("/company/search/:q", companyController.searchCompany);
 
 router.get('/expenses', expenseController.getExpenses);
 router.post('/expenses/create', expenseController.createExpenses);
-
-
 
 //create routes
 router.post('/mdas/create', mdaController.createMda);
