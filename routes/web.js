@@ -36,12 +36,7 @@ router
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.subscribe()
   );
-router
-  .route("/subscribers/:id")
-  .delete(
-    SubscriberController.subscribeRouteValidation(),
-    SubscriberController.unSubscribe()
-  );
+router.route("/subscribers/:id").delete(SubscriberController.unSubscribe());
 
 /**
  * add routes for sectorController directly under here
