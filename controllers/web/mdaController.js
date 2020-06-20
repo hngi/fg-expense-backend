@@ -4,6 +4,7 @@
  */
 
 const MDA = require("../../models/MDA");
+const mongoose = require("mongoose");
 
 exports.createMda = async (req, res) => {
   const { name, twitter_handle, head, head_handle } = req.body;
@@ -19,15 +20,7 @@ exports.createMda = async (req, res) => {
 
 exports.getAllMdas = async (req, res) => {
   try {
-    const allMDAs = await MDA.find()
-      .populate("Head", "_id name tweet_handle head_category")
-      .populate(
-        "Projects",
-        "_id name Companies Companies.name Companies.tweet_handle"
-      )
-      .populate("expenses")
-      .select("-__v");
-
+    const allMDAs = await MDA.find();
     return res.status(200).json({
       status: "success",
       message: `${allMDAs.length} ${
@@ -37,6 +30,36 @@ exports.getAllMdas = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in fetching all MDAs >>>> \n", error);
+    return res.status(500).json({
+      status: "Error",
+      message: "Something went wrong. Try again.",
+    });
+  }
+};
+
+exports.getMda = async (req, res) => {
+  try {
+    const { mdaId } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(mdaId)) {
+      return res.status(400).json({
+        status: "Error",
+        message: "A valid MDA id is required",
+      });
+    }
+    const mdaRecord = await MDA.findById(mdaId);
+    if (!mdaRecord) {
+      return res.status(404).json({
+        status: "Error",
+        message: "MDA record not found",
+      });
+    }
+    return res.status(200).json({
+      status: "success",
+      message: "MDA record found",
+      data: mdaRecord,
+    });
+  } catch (error) {
+    console.log("Error in fetching an MDA >>>> \n", error);
     return res.status(500).json({
       status: "Error",
       message: "Something went wrong. Try again.",
