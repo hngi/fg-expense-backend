@@ -38,7 +38,7 @@ mongoose
       useNewUrlParser: true, // for connection warning
       useUnifiedTopology: true,
     },
-    function () {
+    () => {
       console.log(
         '\n \t Database connection has been established successfully'
       );
@@ -64,13 +64,13 @@ app.use('/comments', commentRoutes);
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
-/* // catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use((req, res, next) => {
   next(createError(404));
 });
- */
+
 // error handler
-/* app.use((err, req, res, next) => {
+ app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -78,6 +78,6 @@ app.use((req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
-}); */
+});
 
 module.exports = app;

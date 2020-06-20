@@ -3,8 +3,23 @@
  *
  */
 
-const Expenses = require("../../models/expense");
-var ObjectId = require("mongoose").Types.ObjectId;
+const Expenses = require('../../models/expense');
+const { getAllMdas } = require('./mdaController');
+
+exports.createExpenses = async (req,res) => {
+  const { mdas, companies, expenseAmount, expenseDesc, paymentDate } = req.body;
+  let expenses = new Expenses({ mdas, companies, expenseAmount, expenseDesc, paymentDate });
+    await expenses.save();
+
+    //reponse message
+  res.status(200)
+  .send({ 
+    status: true,
+    message: 'Expenses created successfully'
+  });
+}
+
+var ObjectId = require('mongoose').Types.ObjectId;
 exports.getExpenses = (req, res, next) => {
   Expenses.find({})
     .populate('mdas')
@@ -26,7 +41,6 @@ exports.getExpenses = (req, res, next) => {
     .catch(next);
 };
 
-// const Project = require("../../models/Project");
 
 exports.getAllExpenseAmount = async (req, res) => {
   try {
