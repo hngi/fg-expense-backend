@@ -17,7 +17,6 @@ var userController = require('../controllers/userController');
 //demo route
 router.post('/users', userController.createUser);
 
-
 /**
  * add routes for projects controller directly under here
  */
@@ -28,6 +27,7 @@ router.get('/projects/all', projectsController.getAllProjects);
  * add routes for expenseController directly under here
  */
 router.get('/expenses/all', expenseController.getExpenses);
+router.get('/companies/funds', expenseController.getCompanyFunds);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
 /**
