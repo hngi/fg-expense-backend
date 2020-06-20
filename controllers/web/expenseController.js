@@ -47,7 +47,7 @@ exports.getExpenses = (req, res, next) => {
 
 exports.getAllExpenseAmount = async (req, res) => {
   try {
-    const expenses = await ProjectModel.find({})
+    const expenses = await Project.find({})
       .populate("MDAs", "_id name")
       .populate("Companies", "_id name");
     const totalExpense = expenses.reduce((a, b) => {

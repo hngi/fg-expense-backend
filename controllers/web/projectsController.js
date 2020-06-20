@@ -3,7 +3,7 @@ const Project = require("../../models/Project");
 const createProject = async (req, res) => {
   const { name, MDAs, companies, expenses } = req.body;
   let project = new Project({ name, MDAs, companies, expenses });
-  await project.save;
+  await project.save();
 
   //reponse message
   res.status(200).send({
