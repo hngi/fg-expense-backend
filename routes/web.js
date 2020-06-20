@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 //require all web controllers
-// var projectsController = require('../controllers/web/projectsController');
+var projectsController = require('../controllers/web/projectsController');
 var paymentReportController = require('../controllers/web/paymentReportController');
 // var referenceController = require('../controllers/web/referenceController');
 var mdaController = require('../controllers/web/mdaController');
@@ -111,4 +111,9 @@ router.get('/expenses', expenseController.getExpenses);
 router.post('/expenses/create', expenseController.createExpenses);
 
 
+
+//create routes
+router.post('/mdas/create', mdaController.createMda);
+router.post('/payments/create', paymentReportController.createPaymentReport);
+router.post('/projects/create', projectsController.createProject);
 module.exports = router;
