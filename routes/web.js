@@ -1,15 +1,15 @@
 var express = require("express");
 var router = express.Router();
 //require all web controllers
-var projectsController = require("../controllers/web/projectsController");
-var paymentReportController = require("../controllers/web/paymentReportController");
-// var referenceController = require("../controllers/web/referenceController");
-// var mdaController = require("../controllers/web/mdaController");
-var companyController = require("../controllers/web/companyController");
-var expenseController = require("../controllers/web/expenseController");
-// var budgetController = require("../controllers/web/budgetController");
-var sectorController = require("../controllers/web/sectorController");
-const SubscriberController = require("../controllers/SubscriberController");
+var projectsController = require('../controllers/web/projectsController');
+var paymentReportController = require('../controllers/web/paymentReportController');
+// var referenceController = require('../controllers/web/referenceController');
+var mdaController = require('../controllers/web/mdaController');
+var companyController = require('../controllers/web/companyController');
+var expenseController = require('../controllers/web/expenseController');
+var budgetController = require('../controllers/web/budgetController');
+var sectorController = require('../controllers/web/sectorController');
+const SubscriberController = require('../controllers/SubscriberController');
 
 //demo data
 var userController = require("../controllers/userController");
@@ -35,8 +35,13 @@ router.get("/expenses/all", expenseController.getExpenses);
 router.get("/report/all", paymentReportController.getAllReports);
 //router.get("/report/:id", paymentReportController.getReport);
 //router.get("/report/download", paymentReportController.downloadReport);
-router.get("/companies", companyController.getCompanies);
-router.get("/sortreport/:fkey?/:skey?", paymentReportController.sortReport);
+router.get('/companies', companyController.getCompanies);
+router.post('/companies/create', companyController.createCompany);
+
+
+
+
+router.get('/sortreport/:fkey?/:skey?', paymentReportController.sortReport);
 
 // Get posts index/posts
 //router.get("/", userController.index);
@@ -101,6 +106,13 @@ router.post("/company/search/:q", companyController.searchCompany);
  * add routes for expensesController directly under here
  */
 
-router.get("/expenses/all", expenseController.getExpenses);
+router.get('/expenses', expenseController.getExpenses);
+router.post('/expenses/create', expenseController.createExpenses);
 
+
+
+//create routes
+router.post('/mdas/create', mdaController.createMda);
+router.post('/payments/create', paymentReportController.createPaymentReport);
+router.post('/projects/create', projectsController.createProject);
 module.exports = router;

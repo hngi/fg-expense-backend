@@ -4,7 +4,22 @@ const Payment = require("../../models/payment_report");
 // const { insertMany } = require("../../models/MDA");
 const APIKEY = ""; // Spreadsheets micro service
 
-var sortReport = async function (req, res) {
+
+exports.createPaymentReport = async (req, res) => {
+  const { minister, project, companies, company_chairman, amount } = req.body;
+  let payment_report = new payment_report({ minister, project, companies, company_chairman, amount });
+   payment_report.save();
+
+      //reponse message
+  res.status(200)
+  .send({ 
+    status: true,
+    message: 'Expenses created successfully'
+  });
+}
+
+
+exports.sortReport = async function (req, res) {
   // seting enum values for mothes
 
   const monthEnum = {
@@ -158,7 +173,7 @@ var sortReport = async function (req, res) {
 };
 
 // Get All Payment Reports
-const getAllReports = async (req, res) => {
+exports.getAllReports = async (req, res) => {
   const reports = await Payment.find(
     {},
     {
@@ -176,9 +191,4 @@ const getAllReports = async (req, res) => {
     }
     return apiresponse.successResponseWithData(res, payments);
   });
-};
-
-module.exports = {
-  sortReport,
-  getAllReports,
 };

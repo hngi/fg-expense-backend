@@ -1,18 +1,33 @@
-const Project = require("../../models/Project");
+const Project = require("../../models/Project");	
+const companies = require("../../models/companies");
 
-const getAllProjects = async (req, res, next) => {
-  try {
-    let allProjects = await Project.find()
-      .populate("company", "_id", "name")
-      .populate("mda", "_id", "name")
-      .populate("Expense");
+const createProject = async (req, res) => {
+    const { name, MDAs, companies, expenses } = req.body;
+    let project = new Project ({ name, MDAs, companies, expenses });
+    await Project.save;
 
-    return res.json(allProjects);
-  } catch (err) {
-    return next(err);
-  }
-};
+    //reponse message
+  res.status(200)
+    .send({ 
+        status: true,
+        message: 'Company created successfully'
+    });
+}
 
-module.exports = {
-  getAllProjects,
+const getAllProjects = async (req, res, next) => {	
+  try {	
+    let allProjects = await Project.find()	
+      .populate("company", "_id", "name")	
+      .populate("mda", "_id", "name")	
+      .populate("Expense");	
+
+    return res.json(allProjects);	
+  } catch (err) {	
+    return next(err);	
+  }	
+};	
+
+module.exports = {	
+  getAllProjects,	
+  createProject
 };
