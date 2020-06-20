@@ -4,7 +4,7 @@
  */
 
 const Expenses = require("../../models/expense");
-const ProjectModel = require("../../models/project");
+const Project = require("../../models/project");
 
 exports.createExpenses = async (req, res) => {
   const { mdas, companies, expenseAmount, expenseDesc, paymentDate } = req.body;
