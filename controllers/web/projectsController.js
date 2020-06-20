@@ -1,9 +1,8 @@
 const Project = require("../../models/Project");
-// const companies = require("../../models/companies");
 
 const createProject = async (req, res) => {
   const { name, MDAs, companies, expenses } = req.body;
-  const project = new Project({ name, MDAs, companies, expenses });
+  let project = new Project({ name, MDAs, companies, expenses });
   await project.save();
 
   //reponse message

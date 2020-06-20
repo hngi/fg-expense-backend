@@ -9,7 +9,7 @@ const Project = require("../models/Project");
  */
 
 //All routes and controller on Projects
-router.get("/projects/all", async (req, res, next) => {
+router.get("/projects", async (req, res, next) => {
   try {
     let allProjects = await Project.find()
       .populate("company", "_id", "name")

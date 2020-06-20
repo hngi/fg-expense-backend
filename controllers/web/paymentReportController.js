@@ -177,17 +177,7 @@ exports.sortReport = async function (req, res) {
 
 // Get All Payment Reports
 exports.getAllReports = async (req, res) => {
-  const reports = await Payment.find(
-    {},
-    {
-      minister: 1,
-      Project: 1,
-      companies: 1,
-      company_chairman: 1,
-      budgets: 1,
-      _id: 0,
-    }
-  );
+  const reports = await Payment.find();
   reports.exec((err, payments) => {
     if (err) {
       return apiresponse.ErrorResponse(res, "Something went wrong");
