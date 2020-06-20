@@ -30,6 +30,12 @@ router.get("/expenses/all", expenseController.getExpenses);
 router.get("/companies/funds", expenseController.getCompanyFunds);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
+// Returns monthly  total agregated payments by all MDAs
+router.get('/total-monthly-payments/', expenseController.getTotalMonthlyExpenses);
+
+// Returns filtered expenses of MDAs by year and months
+router.get("/expenses/:year/:month", expenseController.getExpensesByYearAndMonth);
+
 /**
  * add routes for payementReportController directly under here
  */
