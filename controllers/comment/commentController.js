@@ -187,6 +187,41 @@ exports.flagComment = async (req, res) => {
     });
 };
 
+//This retrieves only unflagged comments
+exports.hideFlaggedComments = (req, res) => {
+  commentModel
+    .find()
+    .then((comments) => {
+      const filteredComments = comments.reduce(
+        (a, o) => (
+          !o.flag &&
+            a.push({
+              _id: o._id,
+              comment: o.comment,
+              name: o.name,
+              email: o.email,
+              flag: o.flag,
+              numOfFlags: o.numOfFlags,
+              upVotes: o.upVotes,
+              downVotes: o.downVotes,
+            }),
+          a
+        ),
+        []
+      );
+      return res.json({
+        status: "Success",
+        message: "All Unflagged Comments",
+        data: filteredComments,
+      });
+    })
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ status: "Failed", message: err.message, data: null })
+    );
+};
+
 //Flag a reply
 exports.flagReplies = async (req, res) => {
   const id = req.params.id;

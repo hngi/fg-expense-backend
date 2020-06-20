@@ -33,6 +33,9 @@ router.post("/flag/:id", projectsController.flagComment);
 //POST - Flag replies (i.e '/comments/flag/reply/:id')
 router.post("/flag/reply/:id", projectsController.flagComment);
 
+//GET - Hide all unflagged comments (i.e '/comments/unflagged')
+router.get("/unflagged", projectsController.hideFlaggedComments);
+
 //GET - Delete Individual comments by ID and Email (I.E '/comment/:id')
 router.delete("/:id", projectsController.deleteComment);
 
