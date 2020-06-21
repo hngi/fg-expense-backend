@@ -239,7 +239,7 @@ exports.flagReplies = async (req, res) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      res.json({ status: "Success", message: "Comment Flagged", data });
+      res.json({ status: "Success", message: "Reply Flagged", data });
     })
     .catch((e) => {
       console.error("Error:", e);
