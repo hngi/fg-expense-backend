@@ -1,8 +1,5 @@
 const sector = require("../../models/Sector");
-const expense = require("../../models/expense");
-
 const mongoose = require("mongoose");
-const { compile } = require("morgan");
 var getASector = async function (req, res) {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -11,11 +8,10 @@ var getASector = async function (req, res) {
     });
   }
   try {
-    var fsector = await sector.findById(id).populate('mdas')
-     
+    var fsector = await sector.findById(id).populate("mdas");
+
     if (fsector) {
-      res.json(fsector)
-       
+      res.json(fsector);
     } else {
       res.json({
         msg: "no sector found",

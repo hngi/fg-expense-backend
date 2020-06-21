@@ -91,6 +91,6 @@ router.post("/expenses/create", expenseController.createExpenses);
 //index route redirecting to the main FE home page
 router.get("/", (req, res) => {
   res.redirect("http://expenseng.com", 301);
- });
+});
 
 module.exports = router;
