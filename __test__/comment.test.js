@@ -5,8 +5,9 @@ const mongoose = require("mongoose");
 
 describe("Comments API", () => {
   it("returns the get all comments from the endpoint", async (done) => {
+    const id = 50;
     const res = await request
-      .get("/comments/replies")
+      .get(`/comments/replies/${id}`)
       .set("Accept", "application/json");
     expect(res.status).toBe(200);
     expect(res.body.status).toBe("Success");

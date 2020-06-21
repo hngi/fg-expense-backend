@@ -157,7 +157,7 @@ exports.getAllCommentsAndReplies = (req, res) => {
     return res.json({
       status: "Success",
       msg: "All comments and replies",
-      data: body,
+      data: JSON.parse(body),
     });
   });
 };

@@ -22,7 +22,7 @@ router.patch("/:id/votes", commentController.voteComment);
 router.post("/:id/replies", commentController.postReply);
 
 // GET - All comments and replies
-router.get("/replies", commentController.getAllCommentsAndReplies);
+router.get("/replies/:id", commentController.getAllCommentsAndReplies);
 
 //POST - Flag comments (i.e '/comments/flag/:id')
 router.post("/flag/:id", commentController.flagComment);
