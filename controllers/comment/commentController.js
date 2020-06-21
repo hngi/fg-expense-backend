@@ -59,7 +59,7 @@ exports.postCommentByEmail = async (req, res) => {
   const report_id = reportId;
   const comment_owner_email = email;
   const comment_origin = " ";
-  const url = "https://fgn-comments-service.herokuapp.com/tweet/comment";
+  const url = "https://fgn-comments-service.herokuapp.com/tweet/comment/create";
 
   const data = {
     comment_body,
@@ -145,7 +145,8 @@ exports.postReply = async (req, res) => {
 
 //return all comments and replies without flags
 exports.getAllCommentsAndReplies = (req, res) => {
-  const url = "https://fgn-comments-service.herokuapp.com/reports/comments";
+  const id = req.params.id;
+  const url = `https://fgn-comments-service.herokuapp.com/report/comments/${id}`;
   Request.get(url, (error, response, body) => {
     if (error) {
       return res
