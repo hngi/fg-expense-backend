@@ -3,23 +3,23 @@ const Payment = require("../../models/payment_report");
 const Expense = require("../../models/expense");
 // const { insertMany } = require("../../models/MDA");
 
-// exports.createPaymentReport = async (req, res) => {
-//   const { minister, project, companies, company_chairman, amount } = req.body;
-//   let payment_report = new payment_report({
-//     minister,
-//     project,
-//     companies,
-//     company_chairman,
-//     amount,
-//   });
-//   payment_report.save();
+exports.createPaymentReport = async (req, res) => {
+  const { minister, project, companies, company_chairman, amount } = req.body;
+  let payment_report = new payment_report({
+    minister,
+    project,
+    companies,
+    company_chairman,
+    amount,
+  });
+  payment_report.save();
 
-//   //reponse message
-//   res.status(200).send({
-//     status: true,
-//     message: "Expenses created successfully",
-//   });
-// };
+  //reponse message
+  res.status(200).send({
+    status: true,
+    message: "Expenses created successfully",
+  });
+};
 
 exports.sortReport = async function (req, res) {
   // seting enum values for mothes
