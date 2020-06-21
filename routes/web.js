@@ -75,9 +75,8 @@ router.get("/companies/funds", companyController.getCompanyFunds);
  */
 router.post("/mdas/create", mdaController.createMda);
 router.get("/mdas", mdaController.getAllMdas);
+router.get("/mdas/:mdaId", mdaController.getMda);
 router.get("/mda/heads", mdaController.getAllHeads);
-
-//router.get("/mdas/:id", mdaController.getSingleMda);
 
 /**
  * add routes for expensesController directly under here
