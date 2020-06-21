@@ -7,49 +7,48 @@ const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/;
 exports.createCompany = async (req, res) => {
   try {
     let { name, twitter_handle, head, head_handle } = req.body;
-  name = name.toLowerCase();
-  /* eslint-enable */
-  let company = new Company({ name, twitter_handle, head, head_handle });
-  const test_company = await Company.findOne({ name: name });
-  if (!name) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this Company Profile. Ensure the name fields is not empty",
-    });
-  } else if (test_company) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this Company. " + name + " exists in the database.",
-    });
-  } else if (
-    //test for twitter_handle
-    (!pattern.test(twitter_handle) && twitter_handle != "") ||
-    (!pattern.test(head_handle) && head_handle != "")
-  ) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this Company. Ensure Twitter handles are written correctly.",
-    });
-  } else {
-    await company.save();
-  }
+    name = name.toLowerCase();
+    /* eslint-enable */
+    let company = new Company({ name, twitter_handle, head, head_handle });
+    const test_company = await Company.findOne({ name: name });
+    if (!name) {
+      //Error message
+      res.status(400).send({
+        status: false,
+        message:
+          "Error in creating this Company Profile. Ensure the name fields is not empty",
+      });
+    } else if (test_company) {
+      //Error message
+      res.status(400).send({
+        status: false,
+        message:
+          "Error in creating this Company. " +
+          name +
+          " exists in the database.",
+      });
+    } else if (
+      //test for twitter_handle
+      (!pattern.test(twitter_handle) && twitter_handle != "") ||
+      (!pattern.test(head_handle) && head_handle != "")
+    ) {
+      //Error message
+      res.status(400).send({
+        status: false,
+        message:
+          "Error in creating this Company. Ensure Twitter handles are written correctly.",
+      });
+    } else {
+      await company.save();
+    }
   } catch (error) {
     console.log(error.name, error.message);
-    res.status(400)
-      .send({
-        status: false,
-        message: error.name,
-        desc: error.message
-      })
-    
+    res.status(400).send({
+      status: false,
+      message: error.name,
+      desc: error.message,
+    });
   }
-  
 };
 
 exports.getAllCompanies = (req, res) => {

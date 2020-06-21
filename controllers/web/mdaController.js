@@ -51,9 +51,9 @@ exports.createMda = async (req, res) => {
     res.status(400).send({
       status: false,
       message: error.name,
-      desc: error.message
+      desc: error.message,
     });
-  } 
+  }
 };
 
 exports.getAllMdas = async (req, res) => {
