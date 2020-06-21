@@ -53,12 +53,12 @@ exports.getAll = [
 
 // comments should be added here - thanks
 exports.postCommentByEmail = async (req, res) => {
-  const { comment, name, email, reportId } = req.body;
+  const { comment, name, email, reportId, origin } = req.body;
   const comment_body = comment;
   const comment_owner_username = name;
   const report_id = reportId;
   const comment_owner_email = email;
-  const comment_origin = " ";
+  const comment_origin = origin;
   const url = "https://fgn-comments-service.herokuapp.com/tweet/comment/create";
 
   const data = {
