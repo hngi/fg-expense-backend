@@ -13,7 +13,7 @@ exports.createMda = async (req, res) => {
 
     let mda = new MDA({ name, twitter_handle, mda_type, head, head_handle });
     const test_mda = await MDA.findOne({ name: name, mda_type: mda_type });
-
+    console.log(test_mda);
     if (test_mda) {
       //Error message
       res.status(400).send({

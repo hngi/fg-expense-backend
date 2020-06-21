@@ -5,7 +5,8 @@ const apiresponse = require("../../utility/apiResponse");
 const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; 
 
 exports.createCompany = async (req, res) => {
-  let { name, twitter_handle, head, head_handle } = req.body;
+  try {
+    let { name, twitter_handle, head, head_handle } = req.body;
   name = name.toLowerCase();
   /* eslint-enable */
   let company = new Company({ name, twitter_handle, head, head_handle });
@@ -44,6 +45,17 @@ exports.createCompany = async (req, res) => {
       message: "Company created successfully",
     });
   }
+  } catch (error) {
+    console.log(error.name, error.message);
+    res.status(400)
+      .send({
+        status: false,
+        message: error.name,
+        desc: error.message
+      })
+    
+  }
+  
 };
 
 exports.getAllCompanies = (req, res) => {
