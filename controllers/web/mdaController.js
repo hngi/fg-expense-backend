@@ -1,7 +1,6 @@
 const MDA = require("../../models/MDA");
 const mongoose = require("mongoose");
 
-
 /* eslint-disable */
 const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; // eslint-disable-line no-use-before-define
 /* eslint-enable */
@@ -66,7 +65,6 @@ exports.getAllMdas = async (req, res) => {
   }
 };
 
-
 exports.getMda = async (req, res) => {
   try {
     const { mdaId } = req.params;
@@ -98,7 +96,6 @@ exports.getMda = async (req, res) => {
 };
 
 exports.getAllHeads = async (req, res) => {
-
   try {
     const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 });
     if (!MdaHandle.length) {
