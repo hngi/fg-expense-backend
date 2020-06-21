@@ -1,9 +1,8 @@
 {
-  "name": "FG-Expense_Backend",
+  "name": "fg-expense_backend",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "install": "npm install",
     "start": "node ./bin/www",
     "startDev": "nodemon ./bin/www",
     "test": "cross-env NODE_ENV=test jest",
