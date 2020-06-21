@@ -42,13 +42,13 @@ app.use(express.static(__dirname + "public"));
 app.use(cors());
 
 //setup app routes
-app.get("/docs", docs);
+app.get("/documentation", doc);
 app.use("/", webRoutes);
 app.use("/comments", commentRoutes);
 
 //set temporary base url
-function docs(req, res) {
-  res.status(301).sendFile(__dirname + "/views/index.html");
+function doc(req, res) {
+  res.sendFile(__dirname + "/views/index.html");
 }
 
 /*
