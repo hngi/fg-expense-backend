@@ -82,9 +82,9 @@ exports.postCommentByEmail = async (req, res) => {
     // console.log(response);
     // return appropriate response
     res.status(201).send(response);
-  } catch (error) {
+  } catch (err) {
     //return error message
-    res.status(400).send(error);
+    res.status(err.statusCode || 400).send(err.error);
   }
 };
 
