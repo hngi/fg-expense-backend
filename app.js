@@ -52,6 +52,12 @@ app.use(cors());
 app.use("/", webRoutes);
 app.use("/comments", commentRoutes);
 
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to expenseng.com API",
+  });
+});
+
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
