@@ -52,6 +52,7 @@ exports.getAll = [
 ];
 
 // comments should be added here - thanks
+// reportId/expense_id needed here and should probably be a route param not query param
 exports.postCommentByEmail = async (req, res) => {
   const { comment, name, email, reportId } = req.body;
   const comment_body = comment;
