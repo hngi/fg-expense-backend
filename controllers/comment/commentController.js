@@ -4,7 +4,6 @@ const request = require("request");
 let rp = require("request-promise");
 
 const commentModel = require("../../models/Comment");
-const userModel = require("../../models/User");
 const replyModel = require("../../models/reply");
 
 // The url to the comments API.
@@ -53,35 +52,39 @@ exports.getAll = [
 ];
 
 // comments should be added here - thanks
+// reportId/expense_id needed here and should probably be a route param not query param
 exports.postCommentByEmail = async (req, res) => {
-  const { comment, name, email } = req.body;
+  // get request values
+  const { expense_id } = req.query;
+  const {
+    comment,
+    username = "anonymous",
+    email = "anonymous@email.com",
+    comment_origin,
+  } = req.body;
+
+  const options = {
+    method: "POST",
+    uri: `${commentsAPIUrl}report/comment/create`,
+    json: true,
+    body: {
+      report_id: expense_id,
+      comment_body: comment,
+      comment_owner_username: username,
+      comment_owner_email: email,
+      comment_origin,
+    },
+  };
+
+  // post to comments MicroAPI
   try {
-    const newComment = new commentModel({ comment, name, email });
-    await newComment
-      .save()
-      .then((comment) => {
-        userModel.findOne({ email: req.body.email }).then((user) => {
-          console.log(user);
-          user.comments = user.comments.push(comment);
-          user.save().then((comment) => {
-            res.status(200).json({
-              status: "Successful",
-              data: comment,
-            });
-          });
-        });
-      })
-      .catch((err) =>
-        res.status(400).json({
-          status: "Failed",
-          message: err.message,
-          data: null,
-        })
-      );
-  } catch (e) {
-    res
-      .status(400)
-      .json({ status: "Failed", message: `${e.message}`, data: null });
+    const response = await rp.post(options);
+    // console.log(response);
+    // return appropriate response
+    res.status(201).send(response);
+  } catch (error) {
+    //return error message
+    res.status(400).send(error);
   }
 };
 
