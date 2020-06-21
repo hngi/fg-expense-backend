@@ -11,14 +11,7 @@ exports.createCompany = async (req, res) => {
     /* eslint-enable */
     let company = new Company({ name, twitter_handle, head, head_handle });
     const test_company = await Company.findOne({ name: name });
-    if (!name) {
-      //Error message
-      res.status(400).send({
-        status: false,
-        message:
-          "Error in creating this Company Profile. Ensure the name fields is not empty",
-      });
-    } else if (test_company) {
+    if (test_company) {
       //Error message
       res.status(400).send({
         status: false,
