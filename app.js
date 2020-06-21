@@ -57,8 +57,6 @@ app.get("/", (req, res) => {
 app.use("/", webRoutes);
 app.use("/comments", commentRoutes);
 
-
-
 /*
     |||  I'll use route method to handle request and response circle  |||
 */
