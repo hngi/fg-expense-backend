@@ -148,3 +148,29 @@ exports.getExpensesByYearAndMonth = async (req, res) => {
       .json({ status: "Failed", message: err.message, data: null });
   }
 };
+
+exports.getSingleExpense = async (req, res) => {
+  try {
+    const expense = await Expenses.findById(req.params.id).populate(
+      "mdas companies"
+    );
+    if (!expense)
+      return res.status(404).json({
+        status: "failed",
+        message: "Expense not found",
+        data: null,
+      });
+
+    res.status(200).json({
+      status: "success",
+      message: "Expense Details",
+      data: { expense },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+      data: null,
+    });
+  }
+};

@@ -85,7 +85,7 @@ router.get("/mda/heads", mdaController.getAllHeads);
 
 router.get("/expenses", expenseController.getExpenses);
 
-//router.get("/expense/:id", expenseController.getSingleExpense);
+router.get("/expenses/:id", expenseController.getSingleExpense);
 router.post("/expenses/create", expenseController.createExpenses);
 
 //index route redirecting to the main FE home page
