@@ -17,16 +17,9 @@ router.post("/projects/create", projectsController.createProject);
 router.get("/projects", projectsController.getAllProjects);
 //router.get("/projects/:id", projectsController.singleProject);
 
-/**
- * add routes for expenseController directly under here
- */
-router.get("/expenses", expenseController.getExpenses);
-router.get("/companies/funds", expenseController.getCompanyFunds);
-//router.get("/expense/:id", expenseController.getSingleExpense);
-
 // Returns monthly  total agregated payments by all MDAs
 router.get(
-  "/total-monthly-payments/",
+  "/expenses/total-monthly-payments/",
   expenseController.getTotalMonthlyExpenses
 );
 
@@ -66,14 +59,14 @@ router.get("/sectors/:id", sectorController.getASector);
 /**
  * add routes for companyController directly under here
  */
-router.get("/companies", companyController.getCompanies);
+router.get("/companies", companyController.getAllCompanies);
 router.post("/companies/create", companyController.createCompany);
 
 // search for company
-router.post("/companies/search/:q", companyController.searchCompany);
+router.get("/companies/search/:q", companyController.searchCompany);
 
 //get all company funds and project awarded
-router.post("/companies/allfunds", companyController.getCompanyFunds);
+router.get("/companies/funds", companyController.getCompanyFunds);
 
 //router.get("/companies/:id", companyController.getAcompany);
 
@@ -82,13 +75,16 @@ router.post("/companies/allfunds", companyController.getCompanyFunds);
  */
 router.post("/mdas/create", mdaController.createMda);
 router.get("/mdas", mdaController.getAllMdas);
-//router.get("/mdas/:id", mdaController.getSingleMda);
+router.get("/mdas/:mdaId", mdaController.getMda);
+router.get("/mda/heads", mdaController.getAllHeads);
 
 /**
  * add routes for expensesController directly under here
  */
 
 router.get("/expenses", expenseController.getExpenses);
+
+router.get("/expenses/:id", expenseController.getSingleExpense);
 router.post("/expenses/create", expenseController.createExpenses);
 
 //index route redirecting to the main FE home page

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="ExpenseNG Bot" content="ExpenseNG Twitter Bot API" />
+    <title>ExpenseNG Bot</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="manifest" href="manifest.json" type="application/json" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        font-size: 1.1rem;
+        color: #222;
+        background-color: #fafafa;
+        text-align: center;
+        line-height: 1.5rem;
+      }
+
+      .container {
+        padding: 0;
+        margin-top: 2.5rem;
+      }
+
+      h3 {
+        margin-top: 2rem;
+      }
+
+      .footer {
+        margin-top: 2.5rem;
+      }
+
+      .content {
+        position: relative;
+        text-align: justify;
+        max-width: 43rem;
+        margin: 1rem auto;
+      }
+      code {
+        font-family: monospace;
+        padding: 0.2rem;
+        color: black;
+        background-color: #fff;
+      }
+      a {
+        color: #2574a9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>ExpenseNG Backend - Boilerplate Documentation</h2>
+      <h3>Active API Endpoints</h3>
+      <br />
+      <h6>
+        <span style="color: green; font-weight: bold;"
+          >NOTE: As more endpoints are tested they will be duely updated</span
+        >
+        <p>
+          For Requests other than
+          <strong style="color: aqua;">GET</strong> request, Kindly use Postman
+        </p>
+      </h6>
+      <div class="content">
+        <h5>Companies Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/companies</code><br />
+            an endpoint to get all companies that has benefitted from an MDA
+          </li>
+          <li>
+            <code>GET [domain_url]/companies/funds</code><br />a temporary
+            endpoint for <code>@expenseng</code> To get all funds received by
+            companies
+          </li>
+          <li>
+            <code>GET [domain_url]/companies/search/:q</code><br />where q is
+            the search string used to look into the companies table.
+          </li>
+        </ol>
+        <br />
+        <h5>MDAs Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/mdas</code><br />
+            an endpoint to get all mdas and their profile
+          </li>
+          <li>
+            <code>GET [domain_url]/mdas/:id</code><br />an endpoint to get an
+            mda profile
+          </li>
+          <li>
+            <code>GET [domain_url]/mda/heads</code><br />an endpoint to get all
+            mda heads and their handles
+          </li>
+        </ol>
+        <br />
+        <h5>Expenses Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/expenses</code><br />
+            an endpoint to get all expenses, with mdas and companies
+          </li>
+          <li>
+            <code>GET [domain_url]/expenses/:id</code><br />an endpoint to get
+            an expense data
+          </li>
+          <li>
+            <code>GET [domain_url]/expenses/:year/:month</code><br />an endpoint
+            to filter expenses by year and month
+          </li>
+          <li>
+            <code>GET [domain_url]/expenses/total-monthly-payments</code
+            ><br />an endpoint to get total monthly payments
+          </li>
+        </ol>
+        <br />
+        <h5>Reports Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/reports/sort/:month/:year</code><br />
+            an endpoint to sort report given month and year as parameters
+          </li>
+        </ol>
+        <br />
+
+        <h5>Projects Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/projects</code><br />
+            an endpoint to all projects and names of associated companies and
+            mdas
+          </li>
+        </ol>
+        <br />
+
+        <h5>Subscribers Endpoints</h5>
+        <ol class="user-stories">
+          <li>
+            <code>GET [domain_url]/subscribers</code><br />
+            an endpoint to get all subscribers
+          </li>
+          <li>
+            <code>POST [domain_url]/subscribers</code><br />
+            an endpoint to subscribe for mails <br />
+            body:<code>{"email": "yourname@doman.com"}</code>
+          </li>
+          <li>
+            <code>DELETE [domain_url]/subscribers/:id</code><br />
+            an endpoint for a user to unsubscribe from getting mails with their
+            :id
+          </li>
+        </ol>
+        <br />
+        <br />
+        <h3>CLICK TO VIEW</h3>
+        <ul>
+          <li>
+            <a href="/companies">/companies</a>
+          </li>
+          <li>
+            <a href="/companies/funds">/companies/funds</a>
+          </li>
+          <li>
+            <a href="/companies/search/s">/companies/search/s</a>
+            <pre>
+returns all companies that has "s" in their name or handle</pre
+            >
+          </li>
+        </ul>
+        <br />
+        <h5>Ministeries, Departments and Heads (MDAs)</h5>
+        <ul>
+          <li>
+            <a href="/mdas">/mdas</a>
+          </li>
+          <li>
+            <a href="/mdas/5e850cd439a10e41d07415e1"
+              >/mdas/5e850cd439a10e41d07415e1</a
+            >
+          </li>
+          <li>
+            <a href="/mda/heads">/mda/heads</a>
+          </li>
+        </ul>
+
+        <br />
+        <h5>Expenses</h5>
+        <ul>
+          <li>
+            <a href="/expenses">/expenses</a>
+          </li>
+          <li>
+            <a href="/expenses/5e8186aa5d750a38e4260fcc"
+              >/expenses/5e8186aa5d750a38e4260fcc</a
+            >
+          </li>
+          <li>
+            <a href="/expenses/2020/03">/expenses/2020/03</a>
+          </li>
+          <li>
+            <a href="/expenses/total-monthly-payments"
+              >/expenses/total-monthly-payments</a
+            >
+          </li>
+        </ul>
+        <br />
+        <h5>Reports</h5>
+        <ul>
+          <li>
+            <a href="/reports/sort/03/2020">/reports/sort/03/2020</a>
+          </li>
+        </ul>
+        <br />
+        <h5>Projects</h5>
+        <ul>
+          <li>
+            <a href="/projects">/projects</a>
+          </li>
+        </ul>
+        <br />
+        <h5>Subscribers</h5>
+        <ul>
+          <li>
+            <a href="/subscribers">/subscribers</a>
+          </li>
+          <li>
+            {DELETE}: <br />
+            <a
+              href="https://fgn-backend.herokuapp.com/subscribers/5eeb27db40c0b064c8279d34"
+              >https://fgn-backend.heroku.com/subscribers/5eeb27db40c0b064c8279d34</a
+            >
+          </li>
+          <li>
+            {POST}: <br />
+            <a
+              href="https://fgn-backend.herokuapp.com/subscribers/5eeb27db40c0b064c8279d34"
+              >https://fgn-backend.heroku.com/subscribers/</a
+            >
+            <p>
+              body: <br />
+              <code>{"email": "yourname@doman.com"}</code>
+            </p>
+          </li>
+        </ul>
+        <br />
+        <h5>Sectors</h5>
+        <ul>
+          <li>
+            <a href="/sectors/5eeea8114ecfc09e864d6591"
+              >/sectors/5eeea8114ecfc09e864d6591</a
+            >
+          </li>
+        </ul>
+        <br />
+        <h5>Comments</h5>
+        <ul>
+          <li>
+            {PATCH}: <br />
+            <a href="https://fgn-backend.herokuapp.com/comments/1/vote"
+              >https://fgn-backend.herokuapp.com/comments/1/vote</a
+            ><br />
+            <p>
+              body: <br />
+              <code>{"vote_type": "upvote"}</code>
+            </p>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer">
+      <p>By <a href="https://www.expenseng.com/">ExpenseNG</a></p>
+    </div>
+  </body>
+</html>

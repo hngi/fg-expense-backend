@@ -29,13 +29,6 @@ exports.getExpenses = (req, res, next) => {
     .populate("mdas")
     .populate("companies")
     .then((expenses) => {
-      //   let expense = {
-      //     project= expenses.expenseDesc,
-      //     projectAmt=expenses.expenseAmount,
-      //     paymentDate= expenses.paymentDate,
-      //     mda; expenses.mda,
-      //     company: expenses.companies,
-      //   };
       res.status(200).json({
         status: "success",
         message: "All expenses retrieved",
@@ -71,10 +64,9 @@ exports.getCompanyFunds = (req, res, next) => {
     .populate("mdas")
     .populate("companies")
     .then((expenses) => {
-      let expense = {};
-      let result = [];
+      let expense = {},
+        result = [];
       expenses.forEach((exp) => {
-        console.log(exp);
         expense.mda = exp.mdas.name;
         expense.mdaHandle = exp.mdas.twitter_handle;
         expense.companyName = exp.companies.name;
@@ -88,8 +80,8 @@ exports.getCompanyFunds = (req, res, next) => {
       });
       res.status(200).json({
         status: "success",
-        message: "All Companyies and Funds Received",
-        data: { result },
+        message: "All Companies and Funds Received",
+        data: result,
       });
     })
     .catch(next);
@@ -112,21 +104,27 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
       },
     ]).exec((err, result) => {
       if (err) throw err;
-      let data = [];
+      let all_totals = [];
       for (let i = 0; i <= result.length - 1; i++) {
-        data.push({
-          total: result[i].total,
+        all_totals.push({
           month: result[i]._id.month,
           year: result[i]._id.year,
+          total: result[i].total,
         });
-      }
+      } //aggregate exec ends here
+
+      let current_month_total;
+      let current_month = new Date().getMonth() + 1;
+      all_totals.forEach((dd) => {
+        if (dd.month === current_month) current_month_total = dd.total;
+      }); //current month total
+
       return res.status(200).json({
         status: "success",
-        message: "Total Monthly Expenses by of all MDAs",
-        data,
-        // result, - decided not to pass result, since it may be difficult for frontend to handle
-      });
-    });
+        current_month_total: current_month_total || "no data for this month",
+        all_totals,
+      }); // JSON return ends here
+    }); //try ends here
   } catch (err) {
     return res
       .status(400)
@@ -143,7 +141,7 @@ exports.getExpensesByYearAndMonth = async (req, res) => {
       paymentDate: {
         $lt: Date(`${year}-${month}`),
       },
-    });
+    }).populate("mdas companies");
 
     return res.status(200).json({
       status: "success",
@@ -154,5 +152,31 @@ exports.getExpensesByYearAndMonth = async (req, res) => {
     return res
       .status(400)
       .json({ status: "Failed", message: err.message, data: null });
+  }
+};
+
+exports.getSingleExpense = async (req, res) => {
+  try {
+    const expense = await Expenses.findById(req.params.id).populate(
+      "mdas companies"
+    );
+    if (!expense)
+      return res.status(404).json({
+        status: "failed",
+        message: "Expense not found",
+        data: null,
+      });
+
+    res.status(200).json({
+      status: "success",
+      message: "Expense Details",
+      data: { expense },
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failed",
+      message: err.message,
+      data: null,
+    });
   }
 };

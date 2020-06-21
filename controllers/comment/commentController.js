@@ -1,5 +1,5 @@
-const request = require("request");
-// const stringify = require("json-stringify-safe");
+const Request = require("request");
+const fetch = require("node-fetch");
 
 let rp = require("request-promise");
 
@@ -7,7 +7,7 @@ const commentModel = require("../../models/Comment");
 const replyModel = require("../../models/reply");
 
 // The url to the comments API.
-const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com/";
+const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com";
 
 /**
  * export.method = req, res function
@@ -54,54 +54,64 @@ exports.getAll = [
 // comments should be added here - thanks
 // reportId/expense_id needed here and should probably be a route param not query param
 exports.postCommentByEmail = async (req, res) => {
-  // get request values
-  const { expense_id } = req.query;
-  const {
-    comment,
-    username = "anonymous",
-    email = "anonymous@email.com",
-    comment_origin,
-  } = req.body;
+  const { comment, name, email, reportId } = req.body;
+  const comment_body = comment;
+  const comment_owner_username = name;
+  const report_id = reportId;
+  const comment_owner_email = email;
+  const comment_origin = " ";
+  const url = "https://fgn-comments-service.herokuapp.com/tweet/comment/create";
 
-  const options = {
-    method: "POST",
-    uri: `${commentsAPIUrl}report/comment/create`,
-    json: true,
-    body: {
-      report_id: expense_id,
-      comment_body: comment,
-      comment_owner_username: username,
-      comment_owner_email: email,
-      comment_origin,
-    },
+  const data = {
+    comment_body,
+    comment_origin,
+    comment_owner_username,
+    report_id,
+    comment_owner_email,
   };
 
-  // post to comments MicroAPI
-  try {
-    const response = await rp.post(options);
-    // console.log(response);
-    // return appropriate response
-    res.status(201).send(response);
-  } catch (err) {
-    //return error message
-    res.status(err.statusCode || 400).send(err.error);
-  }
+  await fetch(url, {
+    method: "POST",
+    mode: "cors",
+    cache: "no-cache",
+    credentials: "same-origin",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((comment) => {
+      res.status(200).json({
+        status: "Successful",
+        data: comment,
+      });
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      res.status(400).json({
+        status: "Failed",
+        message: error.message,
+        data: null,
+      });
+    });
 };
 
-// Adds one upvote to comment
-exports.upvoteComment = (req, res) => {
+// Update votes on comment
+exports.voteComment = (req, res) => {
   const options = {
-    url: `${commentsAPIUrl}reports/comment/vote/${req.params.id}`,
+    url: `${commentsAPIUrl}/reports/comment/vote/${req.params.id}`,
     method: "PATCH",
     headers: {
       Accept: "application/json",
       "Accept-Charset": "utf-8",
     },
     json: true,
-    body: { vote_type: "upvote" },
+    body: req.body,
   };
 
-  request(options, function (err, _, body) {
+  Request(options, function (err, _, body) {
     if (err) {
       res.status(400).json({ status: "Failed", message: err, data: null });
     } else {
@@ -134,30 +144,49 @@ exports.postReply = async (req, res) => {
   }
 };
 
-//return all comments and replies
+//return all comments and replies without flags
 exports.getAllCommentsAndReplies = (req, res) => {
-  /* const url = 'http://localhost:4000/comment/unflagged';
-    Request.get(url, (error, response, body) => {
-    if(error) {
-        return  res.status(400).json({status: 'Failed', message: err.message, data: null});
+  const id = req.params.id;
+  const url = `https://fgn-comments-service.herokuapp.com/report/comments/${id}`;
+  Request.get(url, (error, response, body) => {
+    if (error) {
+      return res
+        .status(400)
+        .json({ status: "Failed", message: error.message, data: null });
     }
-    console.dir(JSON.parse(body));
-    return res.json({ status: 'Success', msg: 'All comments and replies', data: JSON.parse(body)})
-}); */
-  commentModel
-    .find()
-    .then((comments) =>
-      res.json({
-        status: "Success",
-        msg: "All comments and replies",
-        data: comments,
-      })
-    )
-    .catch((err) =>
+    console.dir(body);
+    return res.json({
+      status: "Success",
+      msg: "All comments and replies",
+      data: body,
+    });
+  });
+};
+
+//Flag a comment
+exports.flagComment = async (req, res) => {
+  const id = req.params.id;
+  const url = `https://fgn-comments-service.herokuapp.com/reports/comment/flag/${id}`;
+  const data = { is_flagged: true };
+
+  fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      res.json({ status: "Success", message: "Comment Flagged", data });
+    })
+    .catch((e) => {
+      console.error("Error:", e);
       res
         .status(400)
-        .json({ status: "Failed", message: err.message, data: null })
-    );
+        .json({ status: "Failed", message: `${e.message}`, data: null });
+    });
 };
 
 //This retrieves only unflagged comments
@@ -195,27 +224,32 @@ exports.hideFlaggedComments = (req, res) => {
     );
 };
 
-exports.flagComment = async (req, res) => {
-  try {
-    const flagComment = await commentModel.findById({ _id: req.params.id });
-    if (!flagComment)
-      return res
-        .status(404)
-        .json({ status: "Failed", message: "No comment found", data: null });
-    flagComment.flag = true;
-    flagComment.numOfFlags += 1;
-    flagComment.save();
-    res.json({
-      status: "Success",
-      message: "Comment Flagged",
-      data: flagComment,
+//Flag a reply
+exports.flagReplies = async (req, res) => {
+  const id = req.params.id;
+  const url = `https://fgn-comments-service.herokuapp.com/reports/comment/reply/flag/${id}`;
+  const data = { is_flagged: true };
+
+  fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      res.json({ status: "Success", message: "Reply Flagged", data });
+    })
+    .catch((e) => {
+      console.error("Error:", e);
+      res
+        .status(400)
+        .json({ status: "Failed", message: `${e.message}`, data: null });
     });
-  } catch (e) {
-    res
-      .status(400)
-      .json({ status: "Failed", message: `${e.message}`, data: null });
-  }
 };
+
 exports.deleteComment = async (req, res) => {
   try {
     const deleteComment = await commentModel.findByIdAndDelete({
