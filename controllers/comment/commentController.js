@@ -8,7 +8,7 @@ const userModel = require("../../models/User");
 const replyModel = require("../../models/reply");
 
 // The url to the comments API.
-const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com/";
+const commentsAPIUrl = "https://fgn-comments-service.herokuapp.com";
 
 /**
  * export.method = req, res function
@@ -85,17 +85,17 @@ exports.postCommentByEmail = async (req, res) => {
   }
 };
 
-// Adds one upvote to comment
-exports.upvoteComment = (req, res) => {
+// Update votes on comment
+exports.voteComment = (req, res) => {
   const options = {
-    url: `${commentsAPIUrl}reports/comment/vote/${req.params.id}`,
+    url: `${commentsAPIUrl}/reports/comment/vote/${req.params.id}`,
     method: "PATCH",
     headers: {
       Accept: "application/json",
       "Accept-Charset": "utf-8",
     },
     json: true,
-    body: { vote_type: "upvote" },
+    body: req.body,
   };
 
   request(options, function (err, _, body) {
