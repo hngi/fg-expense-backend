@@ -3,9 +3,11 @@ const Expenses = require("../../models/expense");
 const apiresponse = require("../../utility/apiResponse");
 /* eslint-disable */
 const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; 
-/* eslint-enable */
+
 exports.createCompany = async (req, res) => {
-  const { name, twitter_handle, head, head_handle } = req.body;
+  let { name, twitter_handle, head, head_handle } = req.body;
+  name = name.toLowerCase();
+  /* eslint-enable */
   let company = new Company({ name, twitter_handle, head, head_handle });
   const test_company = await Company.findOne({ name: name });
   if (!name) {
