@@ -29,8 +29,7 @@ const unSubscribe = async (param) => {
     }
     return null;
   } catch (error) {
-    console.log(error.message);
-    throw error;
+    return null;
   }
 };
 

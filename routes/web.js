@@ -24,6 +24,18 @@ router.get("/expenses", expenseController.getExpenses);
 router.get("/companies/funds", expenseController.getCompanyFunds);
 //router.get("/expense/:id", expenseController.getSingleExpense);
 
+// Returns monthly  total agregated payments by all MDAs
+router.get(
+  "/total-monthly-payments/",
+  expenseController.getTotalMonthlyExpenses
+);
+
+// Returns filtered expenses of MDAs by year and months
+router.get(
+  "/expenses/:year/:month",
+  expenseController.getExpensesByYearAndMonth
+);
+
 /**
  * add routes for payementReportController directly under here
  */
@@ -42,12 +54,8 @@ router
   .post(
     SubscriberController.subscribeRouteValidation(),
     SubscriberController.subscribe()
-  )
-  .delete(
-    SubscriberController.subscribeRouteValidation(),
-    SubscriberController.unSubscribe()
   );
-router.post("/subscribers/mail", SubscriberController.mailSubscribers());
+router.route("/subscribers/:id").delete(SubscriberController.unSubscribe());
 
 /**
  * add routes for sectorController directly under here
@@ -74,7 +82,7 @@ router.post("/companies/allfunds", companyController.getCompanyFunds);
  */
 router.post("/mdas/create", mdaController.createMda);
 router.get("/mdas", mdaController.getAllMdas);
-router.get("/heads", mdaController.getAllHeads);
+router.get("/mda/heads", mdaController.getAllHeads);
 
 //router.get("/mdas/:id", mdaController.getSingleMda);
 

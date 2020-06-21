@@ -88,14 +88,14 @@ exports.postCommentByEmail = async (req, res) => {
 // Adds one upvote to comment
 exports.upvoteComment = (req, res) => {
   const options = {
-    url: `${commentsAPIUrl}reports/comment/vote/${req.id}`,
+    url: `${commentsAPIUrl}reports/comment/vote/${req.params.id}`,
     method: "PATCH",
     headers: {
       Accept: "application/json",
       "Accept-Charset": "utf-8",
     },
     json: true,
-    body: req.body,
+    body: { vote_type: "upvote" },
   };
 
   request(options, function (err, _, body) {
