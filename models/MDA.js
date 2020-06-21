@@ -7,6 +7,11 @@ const MDASchema = new Schema(
       type: String,
       required: true,
     },
+    mda_type: {
+      type: String,
+      enum: ["ministry", "department", "agency"],
+      required: true,
+    },
     twitter_handle: {
       type: String,
       required: true,
