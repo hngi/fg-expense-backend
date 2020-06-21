@@ -1,3 +1,9 @@
+**Before submitting your PR for review**
+
+- Run `npm run lint` to find errors in code syntax/format
+- Run `npm run lint:fix` to fix all auto-fixable errors in source code and auto-format with prettier
+- Ensure you fix any linting errors displayed after running any of the above commands
+
 **What does this PR do?**
 
 Summarise the main tasks handled in the pull request

@@ -1,24 +1,50 @@
-/**
- * exports.method = req, res function
- *
- */
 const Company = require("../../models/companies");
 const Expenses = require("../../models/expense");
 const apiresponse = require("../../utility/apiResponse");
-
+/* eslint-disable */
+const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; 
+/* eslint-enable */
 exports.createCompany = async (req, res) => {
   const { name, twitter_handle, head, head_handle } = req.body;
   let company = new Company({ name, twitter_handle, head, head_handle });
-  await company.save();
+  const test_company = await Company.findOne({ name: name });
+  if (!name) {
+    //Error message
+    res.status(400).send({
+      status: false,
+      message:
+        "Error in creating this Company Profile. Ensure the name fields is not empty",
+    });
+  } else if (test_company) {
+    //Error message
+    res.status(400).send({
+      status: false,
+      message:
+        "Error in creating this Company. " + name + " exists in the database.",
+    });
+  } else if (
+    //test for twitter_handle
+    (!pattern.test(twitter_handle) && twitter_handle != "") ||
+    (!pattern.test(head_handle) && head_handle != "")
+  ) {
+    //Error message
+    res.status(400).send({
+      status: false,
+      message:
+        "Error in creating this Company. Ensure Twitter handles are written correctly.",
+    });
+  } else {
+    await company.save();
 
-  //reponse message
-  res.status(200).send({
-    status: true,
-    message: "Company created successfully",
-  });
+    //reponse message
+    res.status(200).send({
+      status: true,
+      message: "Company created successfully",
+    });
+  }
 };
 
-exports.getAllcompany = (req, res) => {
+exports.getAllCompanies = (req, res) => {
   const allCompanyQuery = Company.find();
 
   allCompanyQuery.exec((err, companies) => {
@@ -51,7 +77,7 @@ exports.searchCompany = (req, res) => {
   if (q && q.trim() !== "") {
     const reqexQ = new RegExp(q, "i");
     Company.find(
-      { $or: [{ name: reqexQ }, { tweet_handle: reqexQ }] },
+      { $or: [{ name: reqexQ }, { twitter_handle: reqexQ }] },
       "name",
       (err, d) => {
         if (d && err === null && d.status !== 3) {
@@ -72,7 +98,6 @@ exports.getCompanyFunds = (req, res, next) => {
       let expense = {};
       let result = [];
       expenses.forEach((exp) => {
-        console.log(exp);
         expense.mda = exp.mdas.name;
         expense.mdaHandle = exp.mdas.twitter_handle;
         expense.companyName = exp.companies.name;

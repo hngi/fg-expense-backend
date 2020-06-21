@@ -1,0 +1,17 @@
+[
+  {
+    "_id": { "$oid": "5eeea8114ecfc09e864d6591" },
+    "name": "Economic",
+    "mdas": [
+      { "$oid": "5e850cd439a10e41d07415e1" },
+      { "$oid": "5e850bd239a10e42d07414ad" },
+      { "$oid": "5e850bd679c10e41d0741ae2" },
+      { "$oid": "5e850bd839a10e41d07415ad" }
+    ]
+  },
+  {
+    "_id": { "$oid": "5eeeaa724ecfc09e864d6592" },
+    "name": "Finance",
+    "mdas": [{ "$oid": "5e850bd669a10e42d07414c0" }]
+  }
+]
