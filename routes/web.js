@@ -78,7 +78,6 @@ router.get("/mdas", mdaController.getAllMdas);
 router.get("/mdas/:mdaId", mdaController.getMda);
 router.get("/mda/heads", mdaController.getAllHeads);
 
-
 /**
  * add routes for expensesController directly under here
  */
