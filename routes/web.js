@@ -19,7 +19,7 @@ router.get("/projects", projectsController.getAllProjects);
 
 // Returns monthly  total agregated payments by all MDAs
 router.get(
-  "/total-monthly-payments/",
+  "/expenses/total-monthly-payments/",
   expenseController.getTotalMonthlyExpenses
 );
 

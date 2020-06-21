@@ -45,12 +45,12 @@ exports.sortReport = async function (req, res) {
   //const report=await Expense.find()
   //console.log(report)
   //  res.json(report)
-  var date = new Date("2020-03-11T05:00:00.000Z");
-  console.log(monthEnum[date.getMonth()]);
+  // var date = new Date("2020-03-11T05:00:00.000Z");
+  // console.log(monthEnum[date.getMonth()]);
   var fkey = req.params.fkey;
   var skey = req.params.skey;
   //dum data for testing
-  var unordered = await Expense.find();
+  var unordered = await Expense.find().populate("mdas companies");
 
   if (fkey == undefined && skey == undefined) {
     unordered.sort((a, b) =>
@@ -63,8 +63,8 @@ exports.sortReport = async function (req, res) {
       skey = new Date().getFullYear();
     }
     var farray = unordered.filter((item) => {
-      console.log(new Date(item.paymentDate).getMonth() + 1, fkey);
-      console.log(new Date(item.paymentDate).getFullYear());
+      // console.log(new Date(item.paymentDate).getMonth() + 1, fkey);
+      // console.log(new Date(item.paymentDate).getFullYear());
 
       return (
         new Date(item.paymentDate).getMonth() + 1 == fkey &&
