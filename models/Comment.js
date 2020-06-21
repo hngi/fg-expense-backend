@@ -12,6 +12,10 @@ const CommentSchema = new Schema({
   email: {
     type: String,
   },
+  reportId: {
+    type: Number,
+    default: 0,
+  },
   flag: {
     type: Boolean,
     default: false,

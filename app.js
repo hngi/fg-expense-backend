@@ -1,4 +1,4 @@
-const createError = require("http-errors");
+//const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -49,7 +49,7 @@ app.use("/comments", commentRoutes);
     |||  I'll use route method to handle request and response circle  |||
 */
 // catch 404 and forward to error handler
-app.use((req, res, next) => {
+/* app.use((req, res, next) => {
   next(createError(404));
 });
 
@@ -60,8 +60,8 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
-  res.render("error");
-});
+  res.sendStatus(err.status || 500);
+  res.send("error");
+}); */
 
 module.exports = app;
