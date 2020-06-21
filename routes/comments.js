@@ -18,8 +18,8 @@ router.get("/", commentController.getAll);
 //POST - User can post comments by Name and Email (i.e '/comment')
 router.post("/", projectsController.postCommentByEmail);
 
-// PATCH - Add upvote to comment (i.e '/comment/:id/upvotes')
-router.patch("/:id/upvotes", projectsController.upvoteComment);
+// PATCH - Add upvote to comment (i.e '/comments/:id/votes')
+router.patch("/:id/votes", projectsController.voteComment);
 
 //POST replies - user can post reply to a comment
 router.post("/:id/replies", projectsController.postReply);
