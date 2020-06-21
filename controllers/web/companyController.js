@@ -44,7 +44,7 @@ exports.createCompany = async (req, res) => {
   }
 };
 
-exports.getAllcompany = (req, res) => {
+exports.getAllCompanies = (req, res) => {
   const allCompanyQuery = Company.find();
 
   allCompanyQuery.exec((err, companies) => {
@@ -77,7 +77,7 @@ exports.searchCompany = (req, res) => {
   if (q && q.trim() !== "") {
     const reqexQ = new RegExp(q, "i");
     Company.find(
-      { $or: [{ name: reqexQ }, { tweet_handle: reqexQ }] },
+      { $or: [{ name: reqexQ }, { twitter_handle: reqexQ }] },
       "name",
       (err, d) => {
         if (d && err === null && d.status !== 3) {
@@ -98,7 +98,6 @@ exports.getCompanyFunds = (req, res, next) => {
       let expense = {};
       let result = [];
       expenses.forEach((exp) => {
-        console.log(exp);
         expense.mda = exp.mdas.name;
         expense.mdaHandle = exp.mdas.twitter_handle;
         expense.companyName = exp.companies.name;

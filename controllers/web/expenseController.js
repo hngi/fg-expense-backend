@@ -29,13 +29,6 @@ exports.getExpenses = (req, res, next) => {
     .populate("mdas")
     .populate("companies")
     .then((expenses) => {
-      //   let expense = {
-      //     project= expenses.expenseDesc,
-      //     projectAmt=expenses.expenseAmount,
-      //     paymentDate= expenses.paymentDate,
-      //     mda; expenses.mda,
-      //     company: expenses.companies,
-      //   };
       res.status(200).json({
         status: "success",
         message: "All expenses retrieved",
@@ -71,10 +64,9 @@ exports.getCompanyFunds = (req, res, next) => {
     .populate("mdas")
     .populate("companies")
     .then((expenses) => {
-      let expense = {};
-      let result = [];
+      let expense = {},
+        result = [];
       expenses.forEach((exp) => {
-        console.log(exp);
         expense.mda = exp.mdas.name;
         expense.mdaHandle = exp.mdas.twitter_handle;
         expense.companyName = exp.companies.name;
@@ -88,8 +80,8 @@ exports.getCompanyFunds = (req, res, next) => {
       });
       res.status(200).json({
         status: "success",
-        message: "All Companyies and Funds Received",
-        data: { result },
+        message: "All Companies and Funds Received",
+        data: result,
       });
     })
     .catch(next);
