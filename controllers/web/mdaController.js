@@ -50,37 +50,10 @@ exports.createMda = async (req, res) => {
     console.log(error.name, error.message);
     res.status(400).send({
       status: false,
-      message:
-        "Error in creating this MDA. Ensure the name and mda_type fields are not empty",
+      message: error.name,
+      desc: error.message
     });
-  } else if (test_mda) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this MDA. " + name + " exists in the database.",
-    });
-  }
-  //test for twitter_handle
-  else if (
-    (!pattern.test(twitter_handle) && twitter_handle != "") ||
-    (!pattern.test(head_handle) && head_handle != "")
-  ) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this MDA. Ensure Twitter handles are written correctly.",
-    });
-  } else {
-    await mda.save();
-
-    //reponse message
-    res.status(200).send({
-      status: true,
-      message: "MDA created successfully",
-    });
-  }
+  } 
 };
 
 exports.getAllMdas = async (req, res) => {
