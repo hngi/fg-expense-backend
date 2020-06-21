@@ -7,26 +7,10 @@ const SectorSchema = new Schema(
       type: String,
       required: true,
     },
-    MDAs: [
+    mdas: [
       {
         type: Schema.Types.ObjectId,
-        ref: "MDA",
-      },
-    ],
-    // Projects: [{
-    // type: Schema.Types.ObjectId,
-    // ref: 'Project'
-    // }], Since the MDA has Projects in them...
-    budgets: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Budget",
-      },
-    ],
-    expenses: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Payment",
+        ref: "mdas",
       },
     ],
   },

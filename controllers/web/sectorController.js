@@ -8,12 +8,10 @@ var getASector = async function (req, res) {
     });
   }
   try {
-    const fsector = await sector
-      .findById(id)
-      .populate("MAD")
-      .populate("Budget")
-      .populate("Payment");
+    const fsector = await sector.findById(id).populate('mdas').populate('Expense')
+     
     if (fsector) {
+        
       res.json(fsector);
     } else {
       res.json({
