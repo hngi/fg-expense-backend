@@ -1,5 +1,5 @@
-var mongoose = require("mongoose");
 const sector = require("../../models/Sector");
+const mongoose = require("mongoose");
 var getASector = async function (req, res) {
   const id = req.params.id;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -8,11 +8,8 @@ var getASector = async function (req, res) {
     });
   }
   try {
-    const fsector = await sector
-      .findById(id)
-      .populate("MAD")
-      .populate("Budget")
-      .populate("Payment");
+    var fsector = await sector.findById(id).populate("mdas");
+
     if (fsector) {
       res.json(fsector);
     } else {
