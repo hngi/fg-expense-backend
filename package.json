@@ -51,5 +51,8 @@
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "supertest": "^4.0.2"
+  },
+  "engines": {
+    "node": "v10.16.3"
   }
 }
