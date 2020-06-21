@@ -49,14 +49,15 @@ app.use(cookieParser());
 app.use(cors());
 
 //setup app routes
-app.use("/", webRoutes);
-app.use("/comments", commentRoutes);
-
 app.get("/", (req, res) => {
-  res.json({
+  res.status(200).json({
     message: "Welcome to expenseng.com API",
   });
 });
+app.use("/", webRoutes);
+app.use("/comments", commentRoutes);
+
+
 
 /*
     |||  I'll use route method to handle request and response circle  |||
@@ -73,11 +74,7 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.sendStatus(err.status || 500);
-  res.json({
-    message: err.message,
-    error: err,
-  });
+  res.sendStatus(err.status || 500).send();
 });
 
 module.exports = app;
