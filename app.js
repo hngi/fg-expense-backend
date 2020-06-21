@@ -59,7 +59,10 @@ app.use((err, req, res) => {
 
   // render the error page
   res.sendStatus(err.status || 500);
-  res.send("error");
+  res.json({
+    message: err.message,
+    error: err,
+  });
 });
 
 module.exports = app;
