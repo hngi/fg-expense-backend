@@ -70,11 +70,9 @@ exports.getAllMdas = async (req, res) => {
   }
 };
 
-exports.getAllHandle = async (req, res) => {
+exports.getAllHeads = async (req, res) => {
   try {
-    const MdaHandle = await MDA.find({}, { name: 1, tweet_handle: 1 })
-      .populate("Head", "name", "tweet_handle")
-      .exec();
+    const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 });
     if (!MdaHandle.length) {
       return res.status(400).json({
         status: "False",
@@ -90,7 +88,7 @@ exports.getAllHandle = async (req, res) => {
     console.log(error);
     return res.status(500).json({
       status: "failed",
-      message: "Something went wrong try again later",
+      message: error,
     });
   }
 };
