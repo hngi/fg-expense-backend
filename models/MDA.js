@@ -1,46 +1,29 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const MDASchema = new Schema(
-   {
-      name: {
-         type: String,
-         required:true
-      },
-      tweet_handle: {
-         type: String,
-         required:true
-        },
-      Head: [
-         {
-            type: Schema.Types.ObjectId,
-            ref: 'Head'
-         }
-      ],
-      Projects: [
-         {
-            type: Schema.Types.ObjectId,
-            ref: 'Project'
-         }
-      ], 
-      budgets: [
-         {
-            type: Schema.Types.ObjectId,
-            ref: 'Budget'
-         }
-      ], //this might be a One-to-Many Relationship
-      expenses: [
-         {
-            type: Schema.Types.ObjectId,
-            ref: 'Payment'
-         }
-      ],
-   },
-   {
-      timestamps: true
-   }
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    mda_type: {
+      type: String,
+      enum: ["ministry", "department", "agency"],
+      required: true,
+    },
+    twitter_handle: {
+      type: String,
+      required: true,
+    },
+    head: {
+      type: String,
+    },
+    head_handle: { type: String },
+  },
+  {
+    timestamps: true,
+  }
 );
 
-module.exports = mongoose.model("MDA", MDASchema);
-
-
+module.exports = mongoose.model("mdas", MDASchema);

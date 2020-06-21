@@ -14,6 +14,7 @@ const subscribe = async (param) => {
     const newUser = await UserModel.create({ ...param, isSubscribed: true });
     return newUser;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
@@ -28,7 +29,7 @@ const unSubscribe = async (param) => {
     }
     return null;
   } catch (error) {
-    throw error;
+    return null;
   }
 };
 
@@ -37,6 +38,7 @@ const getAllSubscribers = async () => {
     const data = await UserModel.find({ isSubscribed: true });
     return data;
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
@@ -62,6 +64,7 @@ const mailSubscribers = async (message) => {
       return [...acc, await transporter.sendMail(mailOptions)];
     }, []);
   } catch (error) {
+    console.log(error.message);
     throw error;
   }
 };
