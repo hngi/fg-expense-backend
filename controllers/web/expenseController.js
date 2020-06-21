@@ -104,21 +104,27 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
       },
     ]).exec((err, result) => {
       if (err) throw err;
-      let data = [];
+      let all_totals = [];
       for (let i = 0; i <= result.length - 1; i++) {
-        data.push({
-          total: result[i].total,
+        all_totals.push({
           month: result[i]._id.month,
           year: result[i]._id.year,
+          total: result[i].total,
         });
-      }
+      } //aggregate exec ends here
+
+      let current_month_total;
+      let current_month = new Date().getMonth() + 1;
+      all_totals.forEach((dd) => {
+        if (dd.month === current_month) current_month_total = dd.total;
+      }); //current month total
+
       return res.status(200).json({
         status: "success",
-        message: "Total Monthly Expenses by of all MDAs",
-        data,
-        // result, - decided not to pass result, since it may be difficult for frontend to handle
-      });
-    });
+        current_month_total: current_month_total || "no data for this month",
+        all_totals,
+      }); // JSON return ends here
+    }); //try ends here
   } catch (err) {
     return res
       .status(400)
@@ -135,7 +141,7 @@ exports.getExpensesByYearAndMonth = async (req, res) => {
       paymentDate: {
         $lt: Date(`${year}-${month}`),
       },
-    });
+    }).populate("mdas companies");
 
     return res.status(200).json({
       status: "success",

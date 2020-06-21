@@ -7,20 +7,20 @@ var getASector = async function (req, res) {
       msg: "id is required",
     });
   }
-  try {
-    var fsector = await sector.findById(id).populate("mdas");
+  // try {
+  var fsector = await sector.findById(id).populate("mdas");
 
-    if (fsector) {
-      res.json(fsector);
-    } else {
-      res.json({
-        msg: "no sector found",
-      });
-    }
-  } catch (error) {
-    console.log(error.message);
-    throw error;
+  if (fsector) {
+    res.json(fsector);
+  } else {
+    res.json({
+      msg: "no sector found",
+    });
   }
+  // } catch (error) {
+  //   // console.log(error.message);
+  //   throw error;
+  // }
 };
 
 module.exports = {

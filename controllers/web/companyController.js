@@ -2,8 +2,8 @@ const Company = require("../../models/companies");
 const Expenses = require("../../models/expense");
 const apiresponse = require("../../utility/apiResponse");
 /* eslint-disable */
-const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; 
-
+const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/;
+/* eslint-enable */
 exports.createCompany = async (req, res) => {
   try {
     let { name, twitter_handle, head, head_handle } = req.body;
@@ -38,12 +38,6 @@ exports.createCompany = async (req, res) => {
     });
   } else {
     await company.save();
-
-    //reponse message
-    res.status(200).send({
-      status: true,
-      message: "Company created successfully",
-    });
   }
   } catch (error) {
     console.log(error.name, error.message);
