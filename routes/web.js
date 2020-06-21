@@ -82,6 +82,8 @@ router.post("/companies/allfunds", companyController.getCompanyFunds);
  */
 router.post("/mdas/create", mdaController.createMda);
 router.get("/mdas", mdaController.getAllMdas);
+router.get("/mda/heads", mdaController.getAllHeads);
+
 //router.get("/mdas/:id", mdaController.getSingleMda);
 
 /**
