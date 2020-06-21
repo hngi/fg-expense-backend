@@ -135,7 +135,7 @@ exports.getExpensesByYearAndMonth = async (req, res) => {
       paymentDate: {
         $lt: Date(`${year}-${month}`),
       },
-    });
+    }).populate("mdas companies");
 
     return res.status(200).json({
       status: "success",

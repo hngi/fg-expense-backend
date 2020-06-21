@@ -1,0 +1,37 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  color: #222;
+  background-color: #fafafa;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.container {
+  padding: 0;
+  margin-top: 2.5rem;
+}
+
+h3 {
+  margin-top: 2rem;
+}
+
+.footer {
+  margin-top: 2.5rem;
+}
+
+.content {
+  position: relative;
+  text-align: justify;
+  max-width: 43rem;
+  margin: 1rem auto;
+}
+code {
+  font-family: monospace;
+  padding: 0.2rem;
+  color: black;
+  background-color: #fff;
+}
+a {
+  color: #2574a9;
+}
