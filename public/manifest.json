@@ -1,0 +1,14 @@
+{
+  "short_name": "ExpenseNG",
+  "name": "ExpenseNG Backend API",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "16x16",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}
