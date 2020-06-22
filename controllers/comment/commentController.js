@@ -67,7 +67,7 @@ exports.postCommentByEmail = async (req, res) => {
 
   const options = {
     method: "POST",
-    uri: `${commentsAPIUrl}report/comment/create`,
+    uri: `${commentsAPIUrl}/report/comment/create`,
     json: true,
     body: {
       report_id: expense_id,
