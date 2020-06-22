@@ -56,6 +56,8 @@ exports.getAll = [
 exports.postCommentByEmail = async (req, res) => {
   // get request values
   const { expense_id } = req.query;
+
+  // set default anonymous values if no email or username found
   const {
     comment,
     username = "anonymous",
@@ -79,12 +81,15 @@ exports.postCommentByEmail = async (req, res) => {
   // post to comments MicroAPI
   try {
     const response = await rp.post(options);
-    // console.log(response);
     // return appropriate response
     res.status(201).send(response);
   } catch (err) {
     //return error message
-    res.status(err.statusCode || 400).send(err.error);
+    res.status(err.statusCode || 400).send({
+      message: err.error.message,
+      response: "Failed",
+      data: null,
+    });
   }
 };
 
