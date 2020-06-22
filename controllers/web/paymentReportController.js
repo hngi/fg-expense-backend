@@ -105,12 +105,12 @@ exports.sortReport = async function (req, res) {
 };
 
 // Get All Payment Reports
-exports.getAllReports = async (req, res) => {
-  const reports = await Payment.find();
+exports.getAllReports = (req, res) => {
+  const reports = Payment.find();
   reports.exec((err, payments) => {
     if (err) {
       return apiresponse.ErrorResponse(res, "Something went wrong");
     }
-    return apiresponse.successResponseWithData(res, payments);
+    return apiresponse.successResponseWithData(res,"All Reports", payments);
   });
 };
