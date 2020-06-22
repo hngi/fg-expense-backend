@@ -57,6 +57,7 @@ exports.getCompanyFunds = (req, res, next) => {
  */
 exports.getTotalMonthlyExpenses = async (req, res) => {
   try {
+    const monthNames = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
     await Expenses.aggregate([
       {
         $group: {
@@ -71,11 +72,14 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
       if (err) throw err;
       let all_totals = [];
       for (let i = 0; i <= result.length - 1; i++) {
-        all_totals.push({
-          month: result[i]._id.month,
-          year: result[i]._id.year,
-          total: result[i].total,
-        });
+        if(parseInt(result[i]._id.year) == new Date().getFullYear()){
+            all_totals.push({
+              month: monthNames[result[i]._id.month],
+              year: result[i]._id.year,
+              total: result[i].total,
+            });
+        }
+       
       } //aggregate exec ends here
 
       let current_month_total;
@@ -86,6 +90,7 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
 
       return res.status(200).json({
         status: "success",
+        message: "monthly total expenses of all MDAs for the the current year",
         current_month_total: current_month_total || "no data for this month",
         all_totals,
       }); // JSON return ends here
