@@ -58,13 +58,22 @@ exports.createMda = async (req, res) => {
 
 exports.getAllMdas = async (req, res) => {
   try {
-    const allMDAs = await MDA.find();
+    const { _page, _limit } = req.query;
+    const count = await MDA.countDocuments();
+    const allMDAs = await MDA.find()
+                          .limit(_limit * 1)
+                          .skip((_page - 1) * _limit);
     return res.status(200).json({
       status: "success",
       message: `${allMDAs.length} ${
         allMDAs.length > 1 ? `MDA records` : `MDA record`
       } found`,
-      data: allMDAs,
+      data: {
+        totalCount: count,
+        totalPages: Math.ceil(count / _limit),
+        currentPage: +_page,
+        allMDAs,
+      }
     });
   } catch (error) {
     console.log("Error in fetching all MDAs >>>> \n", error);
@@ -107,7 +116,11 @@ exports.getMda = async (req, res) => {
 
 exports.getAllHeads = async (req, res) => {
   try {
-    const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 });
+    const { _page, _limit } = req.query;
+    const count = await MDA.countDocuments();
+    const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 })
+                                .limit(_limit * 1)
+                                .skip((_page - 1) * _limit);
     if (!MdaHandle.length) {
       return res.status(400).json({
         status: "False",
@@ -117,7 +130,12 @@ exports.getAllHeads = async (req, res) => {
     return res.status(200).json({
       status: "Success",
       message: "Record Found",
-      data: MdaHandle,
+      data: {
+        totalCount: count,
+        totalPages: Math.ceil(count / _limit),
+        currentPage: +_page,
+        MdaHandle,
+      }
     });
   } catch (error) {
     console.log(error);
