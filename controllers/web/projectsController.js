@@ -35,7 +35,27 @@ const getAllProjects = async (req, res, next) => {
     return next(err);
   }
 };
+const Expense = require("../../models/expense");
 
+const getAllProjects = (req, res, next) => 
+{
+    Expenses.find({})
+    .populate("mdas")
+    .populate("companies")
+    .then( function (expense)
+    {
+      return res.json(
+        {
+          status: "Success",
+          message: "Data retrieved",
+           data: {expense}
+        }
+    }.catch(next);
+};
+
+module.exports = {
+  getAllProjects,
+};
 module.exports = {
   getAllProjects,
   createProject,
