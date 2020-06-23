@@ -5,7 +5,7 @@ const Expense = require("../../models/expense");
 
 exports.createPaymentReport = async (req, res) => {
   const { minister, project, companies, company_chairman, amount } = req.body;
-  let payment_report = new payment_report({
+  let payment_report = new Payment({
     minister,
     project,
     companies,
@@ -20,6 +20,8 @@ exports.createPaymentReport = async (req, res) => {
     message: "Expenses created successfully",
   });
 };
+
+
 
 exports.sortReport = async function (req, res) {
   // seting enum values for mothes
