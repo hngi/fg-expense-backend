@@ -1,25 +1,21 @@
 const Project = require("../../models/Project");
 const Expense = require("../../models/expense");
 const apiresponse = require("../../utility/apiResponse");
-
 const createProject = async (req, res) => {
   const { name, MDAs, companies, expenses } = req.body;
   let project = new Project({ name, MDAs, companies, expenses });
   await project.save();
-
   //reponse message
   res.status(200).send({
     status: true,
     message: "Company created successfully",
   });
 };
-
 const getAllProjects = async (req, res, next) => {
   try {
     let allProjects = await Expense.find()
       .populate("companies", "_id name")
       .populate("mdas", "_id name");
-
     let result = allProjects.map((project) => ({
       projectId: project._id,
       project: project.expenseDesc,
@@ -34,26 +30,6 @@ const getAllProjects = async (req, res, next) => {
   } catch (err) {
     return next(err);
   }
-};
-
-// const getAllProjects = (req, res, next) => 
-// {
-//     Expenses.find({})
-//     .populate("mdas")
-//     .populate("companies")
-//     .then( function (expense)
-//     {
-//       return res.json(
-//         {
-//           status: "Success",
-//           message: "Data retrieved",
-//            data: {expense}
-//         }
-//     }.catch(next);
-// };
-
-module.exports = {
-  getAllProjects,
 };
 module.exports = {
   getAllProjects,
