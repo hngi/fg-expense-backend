@@ -52,49 +52,45 @@ exports.getAll = [
 ];
 
 // comments should be added here - thanks
+// reportId/expense_id needed here and should probably be a route param not query param
 exports.postCommentByEmail = async (req, res) => {
-  const { comment, name, email, reportId } = req.body;
-  const comment_body = comment;
-  const comment_owner_username = name;
-  const report_id = reportId;
-  const comment_owner_email = email;
-  const comment_origin = " ";
-  const url = "https://fgn-comments-service.herokuapp.com/tweet/comment/create";
+  // get request values
+  const { expense_id } = req.query;
 
-  const data = {
-    comment_body,
+  // set default anonymous values if no email or username found
+  const {
+    comment,
+    username = "anonymous",
+    email = "anonymous@email.com",
     comment_origin,
-    comment_owner_username,
-    report_id,
-    comment_owner_email,
+  } = req.body;
+
+  const options = {
+    method: "POST",
+    uri: `${commentsAPIUrl}/report/comment/create`,
+    json: true,
+    body: {
+      report_id: expense_id,
+      comment_body: comment,
+      comment_owner_username: username,
+      comment_owner_email: email,
+      comment_origin,
+    },
   };
 
-  await fetch(url, {
-    method: "POST",
-    mode: "cors",
-    cache: "no-cache",
-    credentials: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => response.json())
-    .then((comment) => {
-      res.status(200).json({
-        status: "Successful",
-        data: comment,
-      });
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      res.status(400).json({
-        status: "Failed",
-        message: error.message,
-        data: null,
-      });
+  // post to comments MicroAPI
+  try {
+    const response = await rp.post(options);
+    // return appropriate response
+    res.status(201).send(response);
+  } catch (err) {
+    //return error message
+    res.status(err.statusCode || 400).send({
+      message: err.error.message,
+      response: "Failed",
+      data: null,
     });
+  }
 };
 
 // Update votes on comment

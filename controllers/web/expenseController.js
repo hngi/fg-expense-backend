@@ -24,41 +24,6 @@ exports.createExpenses = async (req, res) => {
   });
 };
 
-exports.getExpenses = (req, res, next) => {
-  Expenses.find({})
-    .populate("mdas")
-    .populate("companies")
-    .then((expenses) => {
-      res.status(200).json({
-        status: "success",
-        message: "All expenses retrieved",
-        data: { expenses },
-      });
-    })
-    .catch(next);
-};
-
-// exports.getAllExpenseAmount = async (req, res) => {
-//   try {
-//     const expenses = await Project.find({})
-//       .populate("MDAs", "_id name")
-//       .populate("Companies", "_id name");
-//     const totalExpense = expenses.reduce((a, b) => {
-//       return a + b.expenses;
-//     }, 0);
-
-//     return res.status(200).json({
-//       status: "success",
-//       message: "Total and breakdown of all expenses",
-//       data: { totalExpense, expenses },
-//     });
-//   } catch (err) {
-//     return res
-//       .status(400)
-//       .json({ status: "Failed", message: err.message, data: null });
-//   }
-// };
-
 exports.getCompanyFunds = (req, res, next) => {
   Expenses.find({})
     .populate("mdas")
@@ -92,6 +57,21 @@ exports.getCompanyFunds = (req, res, next) => {
  */
 exports.getTotalMonthlyExpenses = async (req, res) => {
   try {
+    const monthNames = [
+      "",
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
     await Expenses.aggregate([
       {
         $group: {
@@ -106,11 +86,13 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
       if (err) throw err;
       let all_totals = [];
       for (let i = 0; i <= result.length - 1; i++) {
-        all_totals.push({
-          month: result[i]._id.month,
-          year: result[i]._id.year,
-          total: result[i].total,
-        });
+        if (parseInt(result[i]._id.year) == new Date().getFullYear()) {
+          all_totals.push({
+            month: monthNames[result[i]._id.month],
+            year: result[i]._id.year,
+            total: result[i].total,
+          });
+        }
       } //aggregate exec ends here
 
       let current_month_total;
@@ -121,6 +103,7 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
 
       return res.status(200).json({
         status: "success",
+        message: "monthly total expenses of all MDAs for the the current year",
         current_month_total: current_month_total || "no data for this month",
         all_totals,
       }); // JSON return ends here
@@ -179,4 +162,30 @@ exports.getSingleExpense = async (req, res) => {
       data: null,
     });
   }
+};
+
+/*
+  Please do not modify. There's a frontend Implementation already that depends on this
+*/
+exports.getExpenses = async (req, res, next) => {
+  const { _page, _limit } = req.query;
+  const count = await Expenses.countDocuments();
+
+  Expenses.find({})
+    .populate("mdas companies")
+    .limit(_limit * 1)
+    .skip((_page - 1) * _limit)
+    .then((expenses) => {
+      res.status(200).json({
+        status: "success",
+        message: `Expenses retrieved for Page ${_page}`,
+        data: {
+          totalCount: count,
+          totalPages: Math.ceil(count / _limit),
+          currentPage: +_page,
+          expenses,
+        },
+      });
+    })
+    .catch(next);
 };

@@ -111,6 +111,6 @@ exports.getAllReports = (req, res) => {
     if (err) {
       return apiresponse.ErrorResponse(res, "Something went wrong");
     }
-    return apiresponse.successResponseWithData(res,"All Reports", payments);
+    return apiresponse.successResponseWithData(res, "All Reports", payments);
   });
 };

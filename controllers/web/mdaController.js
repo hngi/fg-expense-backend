@@ -6,55 +6,74 @@ const pattern = /(?<=^|(?<=[^a-zA-Z0-9-_\.]))@([A-Za-z]+[A-Za-z0-9-_]+)/; // esl
 /* eslint-enable */
 
 exports.createMda = async (req, res) => {
-  const { name, twitter_handle, mda_type, head, head_handle } = req.body;
-  let mda = new MDA({ name, twitter_handle, mda_type, head, head_handle });
-  const test_mda = await MDA.findOne({ name: name });
-  if (!name || !mda_type) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this MDA. Ensure the name and mda_type fields are not empty",
-    });
-  } else if (test_mda) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this MDA. " + name + " exists in the database.",
-    });
-  }
-  //test for twitter_handle
-  else if (
-    (!pattern.test(twitter_handle) && twitter_handle != "") ||
-    (!pattern.test(head_handle) && head_handle != "")
-  ) {
-    //Error message
-    res.status(400).send({
-      status: false,
-      message:
-        "Error in creating this MDA. Ensure Twitter handles are written correctly.",
-    });
-  } else {
-    await mda.save();
+  try {
+    let { name, twitter_handle, mda_type, head, head_handle } = req.body;
+    name = !name ? "" : name.toLowerCase(); // eslint-disable-line no-use-before-define
+    mda_type = !mda_type ? "" : mda_type.toLowerCase(); // eslint-disable-line no-use-before-define
 
-    //reponse message
-    res.status(200).send({
-      status: true,
-      message: "MDA created successfully",
+    let mda = new MDA({ name, twitter_handle, mda_type, head, head_handle });
+    const test_mda = await MDA.findOne({ name: name, mda_type: mda_type });
+    console.log(test_mda);
+    if (test_mda) {
+      //Error message
+      res.status(400).send({
+        status: false,
+        message:
+          "Error in creating this MDA. " +
+          name +
+          " in " +
+          mda_type +
+          " exists in the database.",
+      });
+    }
+    //test for twitter_handle
+    else if (
+      (!pattern.test(twitter_handle) && twitter_handle != "") ||
+      (!pattern.test(head_handle) && head_handle != "")
+    ) {
+      //Error message
+      res.status(400).send({
+        status: false,
+        message:
+          "Error in creating this MDA. Ensure Twitter handles are written correctly.",
+      });
+    } else {
+      await mda.save();
+
+      //reponse message
+      res.status(200).send({
+        status: true,
+        message: "MDA created successfully",
+      });
+    }
+  } catch (error) {
+    console.log(error.name, error.message);
+    res.status(400).send({
+      status: false,
+      message: error.name,
+      desc: error.message,
     });
   }
 };
 
 exports.getAllMdas = async (req, res) => {
   try {
-    const allMDAs = await MDA.find();
+    const { _page, _limit } = req.query;
+    const count = await MDA.countDocuments();
+    const allMDAs = await MDA.find()
+                          .limit(_limit * 1)
+                          .skip((_page - 1) * _limit);
     return res.status(200).json({
       status: "success",
       message: `${allMDAs.length} ${
         allMDAs.length > 1 ? `MDA records` : `MDA record`
       } found`,
-      data: allMDAs,
+      data: {
+        totalCount: count,
+        totalPages: Math.ceil(count / _limit),
+        currentPage: +_page,
+        allMDAs,
+      }
     });
   } catch (error) {
     console.log("Error in fetching all MDAs >>>> \n", error);
@@ -97,7 +116,11 @@ exports.getMda = async (req, res) => {
 
 exports.getAllHeads = async (req, res) => {
   try {
-    const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 });
+    const { _page, _limit } = req.query;
+    const count = await MDA.countDocuments();
+    const MdaHandle = await MDA.find({}, { name: 1, head: 1, head_handle: 1 })
+                                .limit(_limit * 1)
+                                .skip((_page - 1) * _limit);
     if (!MdaHandle.length) {
       return res.status(400).json({
         status: "False",
@@ -107,7 +130,12 @@ exports.getAllHeads = async (req, res) => {
     return res.status(200).json({
       status: "Success",
       message: "Record Found",
-      data: MdaHandle,
+      data: {
+        totalCount: count,
+        totalPages: Math.ceil(count / _limit),
+        currentPage: +_page,
+        MdaHandle,
+      }
     });
   } catch (error) {
     console.log(error);
