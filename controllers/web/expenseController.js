@@ -104,7 +104,7 @@ exports.getTotalMonthlyExpenses = async (req, res) => {
       return res.status(200).json({
         status: "success",
         message: "monthly total expenses of all MDAs for the the current year",
-        current_month_total: current_month_total || "no data for this month",
+        current_month_total: current_month_total || 0,
         all_totals,
       }); // JSON return ends here
     }); //try ends here
